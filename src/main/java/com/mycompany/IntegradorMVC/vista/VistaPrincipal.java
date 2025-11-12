@@ -4,17 +4,20 @@
  */
 package com.mycompany.IntegradorMVC.vista;
 
+import com.mycompany.IntegradorMVC.controlador.VistaPrincipalController;
+
 /**
  *
  * @author tomad
  */
-public class main extends javax.swing.JFrame {
+public class VistaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form main
      */
-    public main() {
+    public VistaPrincipal() {
         initComponents();
+        
     }
 
     /**
@@ -35,15 +38,17 @@ public class main extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuActas = new javax.swing.JMenu();
-        jMenuItemGestionActa = new javax.swing.JMenuItem();
-        jMenuItemNuevaActa = new javax.swing.JMenuItem();
+        gestionActaJMenuItem = new javax.swing.JMenuItem();
+        nuevaActaJMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItemVerAutoridades = new javax.swing.JMenuItem();
-        jMenuItemNuevaAutoridad = new javax.swing.JMenuItem();
-        jMenuConsultasReportes = new javax.swing.JMenu();
-        jMenuItemReporteActa = new javax.swing.JMenuItem();
-        jMenuItemActaPorConductor = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        verAutoridadesJMenuItem = new javax.swing.JMenuItem();
+        nuevaAutoridadJMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        rutasJMenuItem = new javax.swing.JMenuItem();
+        vehiculosJMenuItem = new javax.swing.JMenuItem();
+        organizacionesJMenuItem = new javax.swing.JMenuItem();
+        tiposInfraccionesJMenuItem = new javax.swing.JMenuItem();
+        tiposRutasJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +62,10 @@ public class main extends javax.swing.JFrame {
         jLabel2.setText("Ultimas Infracciones:");
 
         jTable1.setBackground(new java.awt.Color(247, 250, 253));
-        jTable1.setForeground(new java.awt.Color(247, 250, 253));
+        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
+                {"Renault", "Juan Perez", "Grave", "Genaro Ramirez"},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -109,62 +114,72 @@ public class main extends javax.swing.JFrame {
 
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/mycompany/IntegradorMVC/imagenes/casa (2).png"))); // NOI18N
-        jMenu3.setText("Home");
+        jMenu3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomad\\Documents\\GitHub\\Integrador-MVC\\resources\\casa.png")); // NOI18N
         jMenuBar1.add(jMenu3);
 
         jMenuActas.setText("Actas");
-
-        jMenuItemGestionActa.setText("Gestión de Actas");
-        jMenuItemGestionActa.addActionListener(new java.awt.event.ActionListener() {
+        jMenuActas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemGestionActaActionPerformed(evt);
+                jMenuActasActionPerformed(evt);
             }
         });
-        jMenuActas.add(jMenuItemGestionActa);
 
-        jMenuItemNuevaActa.setText("Nueva Acta");
-        jMenuItemNuevaActa.addActionListener(new java.awt.event.ActionListener() {
+        gestionActaJMenuItem.setText("Gestión de Actas");
+        gestionActaJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNuevaActaActionPerformed(evt);
+                gestionActaJMenuItemActionPerformed(evt);
             }
         });
-        jMenuActas.add(jMenuItemNuevaActa);
+        jMenuActas.add(gestionActaJMenuItem);
+
+        nuevaActaJMenuItem.setText("Nueva Acta");
+        nuevaActaJMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevaActaJMenuItemActionPerformed(evt);
+            }
+        });
+        jMenuActas.add(nuevaActaJMenuItem);
 
         jMenuBar1.add(jMenuActas);
 
         jMenu2.setText("Autoridades");
 
-        jMenuItemVerAutoridades.setText("Ver Autoridades");
-        jMenuItemVerAutoridades.addActionListener(new java.awt.event.ActionListener() {
+        verAutoridadesJMenuItem.setText("Ver Autoridades");
+        verAutoridadesJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemVerAutoridadesActionPerformed(evt);
+                verAutoridadesJMenuItemActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemVerAutoridades);
+        jMenu2.add(verAutoridadesJMenuItem);
 
-        jMenuItemNuevaAutoridad.setText("Nueva Autoridad");
-        jMenu2.add(jMenuItemNuevaAutoridad);
+        nuevaAutoridadJMenuItem.setText("Nueva Autoridad");
+        jMenu2.add(nuevaAutoridadJMenuItem);
 
         jMenuBar1.add(jMenu2);
 
-        jMenuConsultasReportes.setText("Consultas/Reportes");
+        jMenu1.setText("Listas");
 
-        jMenuItemReporteActa.setText("Reporte de Actas");
-        jMenuConsultasReportes.add(jMenuItemReporteActa);
+        rutasJMenuItem.setText("Rutas");
+        jMenu1.add(rutasJMenuItem);
 
-        jMenuItemActaPorConductor.setText("Buscar Acta por Conductor");
-        jMenuItemActaPorConductor.addActionListener(new java.awt.event.ActionListener() {
+        vehiculosJMenuItem.setText("Vehiculos");
+        jMenu1.add(vehiculosJMenuItem);
+
+        organizacionesJMenuItem.setText("Organizaciones");
+        jMenu1.add(organizacionesJMenuItem);
+
+        tiposInfraccionesJMenuItem.setText("Tipos de Infracciones");
+        tiposInfraccionesJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemActaPorConductorActionPerformed(evt);
+                tiposInfraccionesJMenuItemActionPerformed(evt);
             }
         });
-        jMenuConsultasReportes.add(jMenuItemActaPorConductor);
+        jMenu1.add(tiposInfraccionesJMenuItem);
 
-        jMenuItem1.setText("Buscar Infracción por Vehículo");
-        jMenuConsultasReportes.add(jMenuItem1);
+        tiposRutasJMenuItem.setText("Tipos de Rutas");
+        jMenu1.add(tiposRutasJMenuItem);
 
-        jMenuBar1.add(jMenuConsultasReportes);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -182,21 +197,25 @@ public class main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemGestionActaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionActaActionPerformed
+    private void gestionActaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionActaJMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemGestionActaActionPerformed
+    }//GEN-LAST:event_gestionActaJMenuItemActionPerformed
 
-    private void jMenuItemNuevaActaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNuevaActaActionPerformed
+    private void nuevaActaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaActaJMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemNuevaActaActionPerformed
+    }//GEN-LAST:event_nuevaActaJMenuItemActionPerformed
 
-    private void jMenuItemActaPorConductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemActaPorConductorActionPerformed
+    private void verAutoridadesJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAutoridadesJMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemActaPorConductorActionPerformed
+    }//GEN-LAST:event_verAutoridadesJMenuItemActionPerformed
 
-    private void jMenuItemVerAutoridadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVerAutoridadesActionPerformed
+    private void tiposInfraccionesJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposInfraccionesJMenuItemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItemVerAutoridadesActionPerformed
+    }//GEN-LAST:event_tiposInfraccionesJMenuItemActionPerformed
+
+    private void jMenuActasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuActasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuActasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,42 +234,46 @@ public class main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VistaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                new VistaPrincipal().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem gestionActaJMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenuActas;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuConsultasReportes;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItemActaPorConductor;
-    private javax.swing.JMenuItem jMenuItemGestionActa;
-    private javax.swing.JMenuItem jMenuItemNuevaActa;
-    private javax.swing.JMenuItem jMenuItemNuevaAutoridad;
-    private javax.swing.JMenuItem jMenuItemReporteActa;
-    private javax.swing.JMenuItem jMenuItemVerAutoridades;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable jTable1;
+    public javax.swing.JMenuItem nuevaActaJMenuItem;
+    public javax.swing.JMenuItem nuevaAutoridadJMenuItem;
+    public javax.swing.JMenuItem organizacionesJMenuItem;
+    public javax.swing.JMenuItem rutasJMenuItem;
+    public javax.swing.JMenuItem tiposInfraccionesJMenuItem;
+    public javax.swing.JMenuItem tiposRutasJMenuItem;
+    public javax.swing.JMenuItem vehiculosJMenuItem;
+    public javax.swing.JMenuItem verAutoridadesJMenuItem;
     // End of variables declaration//GEN-END:variables
 }

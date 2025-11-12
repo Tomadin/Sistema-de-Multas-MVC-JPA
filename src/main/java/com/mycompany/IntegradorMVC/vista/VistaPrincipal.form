@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <Properties>
@@ -12,31 +12,39 @@
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/mycompany/IntegradorMVC/imagenes/casa (2).png"/>
+              <Image iconType="2" name="C:\Users\tomad\Documents\GitHub\Integrador-MVC\resources\casa.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuActas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Actas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuActasActionPerformed"/>
+          </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemGestionActa">
+            <MenuItem class="javax.swing.JMenuItem" name="gestionActaJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Actas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemGestionActaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gestionActaJMenuItemActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevaActa">
+            <MenuItem class="javax.swing.JMenuItem" name="nuevaActaJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nueva Acta"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNuevaActaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevaActaJMenuItemActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -45,43 +53,74 @@
             <Property name="text" type="java.lang.String" value="Autoridades"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemVerAutoridades">
+            <MenuItem class="javax.swing.JMenuItem" name="verAutoridadesJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ver Autoridades"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemVerAutoridadesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verAutoridadesJMenuItemActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemNuevaAutoridad">
+            <MenuItem class="javax.swing.JMenuItem" name="nuevaAutoridadJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nueva Autoridad"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenuConsultasReportes">
+        <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Consultas/Reportes"/>
+            <Property name="text" type="java.lang.String" value="Listas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemReporteActa">
+            <MenuItem class="javax.swing.JMenuItem" name="rutasJMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reporte de Actas"/>
+                <Property name="text" type="java.lang.String" value="Rutas"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemActaPorConductor">
+            <MenuItem class="javax.swing.JMenuItem" name="vehiculosJMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar Acta por Conductor"/>
+                <Property name="text" type="java.lang.String" value="Vehiculos"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="organizacionesJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Organizaciones"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="tiposInfraccionesJMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tipos de Infracciones"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemActaPorConductorActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tiposInfraccionesJMenuItemActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="tiposRutasJMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Buscar Infracci&#xf3;n por Veh&#xed;culo"/>
+                <Property name="text" type="java.lang.String" value="Tipos de Rutas"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -204,14 +243,34 @@
                   <Color blue="fd" green="fa" red="f7" type="rgb"/>
                 </Property>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="fd" green="fa" red="f7" type="rgb"/>
+                  <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
-                    <Column editable="true" title="Vehiculo" type="java.lang.Object"/>
-                    <Column editable="true" title="Conductor" type="java.lang.Object"/>
-                    <Column editable="true" title="Tipo de Infraccion" type="java.lang.Object"/>
-                    <Column editable="true" title="Autoridad" type="java.lang.Object"/>
+                    <Column editable="true" title="Vehiculo" type="java.lang.Object">
+                      <Data value="Renault"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Conductor" type="java.lang.Object">
+                      <Data value="Juan Perez"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Tipo de Infraccion" type="java.lang.Object">
+                      <Data value="Grave"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
+                    <Column editable="true" title="Autoridad" type="java.lang.Object">
+                      <Data value="Genaro Ramirez"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                      <Data value="null"/>
+                    </Column>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -245,6 +304,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
