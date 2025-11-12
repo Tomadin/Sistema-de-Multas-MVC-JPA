@@ -41,6 +41,7 @@ import java.time.Month;
 public class IntegradorMVC {
 
     public static void main(String[] args) {
+        System.out.println("cambios xd");
         //Creamos acta
         ActaDeConstatacion acta = new ActaDeConstatacion(LocalDate.of(2024, Month.OCTOBER, 9), LocalDate.of(2024, Month.NOVEMBER, 15), LocalDateTime.of(2024, Month.OCTOBER, 9, 12, 30), "San Martin 860", 123123, "Se dio vuelta.", new OrganizacionEstatal("Seguridad Vial", "Lujan de Cuyo"), new Vehiculo("Azul", "BB432NS", 2020, new Marca("Renault", new Modelo("Clio 1.6L"))), new EstadoDelActa("Se labró un acta MUY dura", "Multa"), new AutoridadDeConstatacion(78, 6, "Carlos", "Baute", 23456743, "Masculino"), new Licencia(87642, LocalDate.of(2026, Month.SEPTEMBER, 25), 74), new Ruta("Acceso Sur", "650", new TipoRuta("Asfaltada a medias", "Ruta Miseria")));
         //Asignamos conductor a la licencia de acta
