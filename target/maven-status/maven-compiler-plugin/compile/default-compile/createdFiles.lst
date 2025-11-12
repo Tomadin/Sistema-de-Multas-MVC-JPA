@@ -1,0 +1,15 @@
+com\mycompany\IntegradorMVC\entidades\Licencia.class
+com\mycompany\IntegradorMVC\entidades\ActaDeConstatacion.class
+com\mycompany\IntegradorMVC\entidades\TipoRuta.class
+com\mycompany\IntegradorMVC\entidades\AutoridadDeConstatacion.class
+com\mycompany\IntegradorMVC\entidades\Conductor.class
+com\mycompany\IntegradorMVC\entidades\TipoDeInfraccion.class
+com\mycompany\IntegradorMVC\entidades\Modelo.class
+com\mycompany\IntegradorMVC\IntegradorMVC.class
+com\mycompany\IntegradorMVC\entidades\OrganizacionEstatal.class
+com\mycompany\IntegradorMVC\entidades\Marca.class
+com\mycompany\IntegradorMVC\entidades\Ruta.class
+com\mycompany\IntegradorMVC\entidades\EstadoDelActa.class
+com\mycompany\IntegradorMVC\entidades\Persona.class
+com\mycompany\IntegradorMVC\entidades\Vehiculo.class
+com\mycompany\IntegradorMVC\entidades\Infraccion.class
