@@ -1,15 +1,16 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ActaDeConstatacion {
     private ArrayList<Infraccion> infracciones = new ArrayList<>();
-    private LocalDate fechaDeLabrado;
-    private LocalDate fechaVtoPagoVolun;
+    private Date fechaDeLabrado; //era LocalDate
+    private Date fechaVtoPagoVolun;
     private LocalDateTime horaDeLabrado;
     private String lugarDeConstatacion;
     private int idActa;
@@ -21,12 +22,15 @@ public class ActaDeConstatacion {
     private Licencia licencia;
     private Ruta ruta;
 
-    public ActaDeConstatacion(LocalDate fechaDeLabrado, LocalDate fechaVtoPagoVolun, LocalDateTime horaDeLabrado, String lugarDeConstatacion, int idActa, String observaciones, OrganizacionEstatal organizacionEstatal, Vehiculo vehiculo, EstadoDelActa estadoDelActa, AutoridadDeConstatacion autoridadDeConstatacion, Licencia licencia, Ruta ruta) {
+    public ActaDeConstatacion() {
+    }
+
+    
+    public ActaDeConstatacion(Date fechaDeLabrado, Date fechaVtoPagoVolun, LocalDateTime horaDeLabrado, String lugarDeConstatacion, String observaciones, OrganizacionEstatal organizacionEstatal, Vehiculo vehiculo, EstadoDelActa estadoDelActa, AutoridadDeConstatacion autoridadDeConstatacion, Licencia licencia, Ruta ruta) {
         this.fechaDeLabrado = fechaDeLabrado;
         this.fechaVtoPagoVolun = fechaVtoPagoVolun;
         this.horaDeLabrado = horaDeLabrado;
         this.lugarDeConstatacion = lugarDeConstatacion;
-        this.idActa = idActa;
         this.observaciones = observaciones;
         this.organizacionEstatal = organizacionEstatal;
         this.vehiculo = vehiculo;
@@ -48,19 +52,19 @@ public class ActaDeConstatacion {
         this.infracciones.add(infraccion);
     }
     
-    public LocalDate getFechaDeLabrado() {
+    public Date getFechaDeLabrado() {
         return fechaDeLabrado;
     }
 
-    public void setFechaDeLabrado(LocalDate fechaDeLabrado) {
+    public void setFechaDeLabrado(Date fechaDeLabrado) {
         this.fechaDeLabrado = fechaDeLabrado;
     }
 
-    public LocalDate getFechaVtoPagoVolun() {
+    public Date getFechaVtoPagoVolun() {
         return fechaVtoPagoVolun;
     }
 
-    public void setFechaVtoPagoVolun(LocalDate fechaVtoPagoVolun) {
+    public void setFechaVtoPagoVolun(Date fechaVtoPagoVolun) {
         this.fechaVtoPagoVolun = fechaVtoPagoVolun;
     }
 

@@ -1,16 +1,21 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 
 public class Licencia {
     private int idLicencia;
-    private LocalDate fechaDeVto;
+    private Date fechaDeVto;
     private int puntosInicialesLicencia;
     private Conductor conductor = new Conductor();
 
-    public Licencia(int idLicencia, LocalDate fechaDeVto, int puntosInicialesLicencia) {
+    public Licencia() {
+    }
+
+    
+    public Licencia(int idLicencia, Date fechaDeVto, int puntosInicialesLicencia) {
         this.idLicencia = idLicencia;
         this.fechaDeVto = fechaDeVto;
         this.puntosInicialesLicencia = puntosInicialesLicencia;
@@ -24,11 +29,11 @@ public class Licencia {
         this.idLicencia = idLicencia;
     }
 
-    public LocalDate getFechaDeVto() {
+    public Date getFechaDeVto() {
         return fechaDeVto;
     }
 
-    public void setFechaDeVto(LocalDate fechaDeVto) {
+    public void setFechaDeVto(Date fechaDeVto) {
         this.fechaDeVto = fechaDeVto;
     }
 

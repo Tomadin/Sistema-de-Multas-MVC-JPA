@@ -1,11 +1,15 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 
 public class EstadoDelActa {
     private String descripcionEstadoActa;
     private String nombreEstadoActa;
 
+    public EstadoDelActa() {
+    }
+
+    
     public EstadoDelActa(String descripcionEstadoActa, String nombreEstadoActa) {
         this.descripcionEstadoActa = descripcionEstadoActa;
         this.nombreEstadoActa = nombreEstadoActa;

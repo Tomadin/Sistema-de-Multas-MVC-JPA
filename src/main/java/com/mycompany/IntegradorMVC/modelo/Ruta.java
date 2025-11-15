@@ -1,18 +1,32 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 
 public class Ruta {
+    private int id;
     private String nombreRuta;
     private String kmRuta;
     private TipoRuta tipoRuta;
 
+    public Ruta() {
+    }
+
+    
     public Ruta(String nombreRuta, String kmRuta, TipoRuta tipoRuta) {
         this.nombreRuta = nombreRuta;
         this.kmRuta = kmRuta;
         this.tipoRuta = tipoRuta;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public String getNombreRuta() {
         return nombreRuta;
     }

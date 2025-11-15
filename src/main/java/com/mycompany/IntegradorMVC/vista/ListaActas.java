@@ -28,14 +28,14 @@ public class ListaActas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaVehiculos = new javax.swing.JTable();
+        actasJTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         detalleActaBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        listaVehiculos.setModel(new javax.swing.table.DefaultTableModel(
+        actasJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"12/11/2025", "15:05",  new Integer(121225), "San Martin 123", "Renault", "Policia", "42432343", "Juan Perez", "Activa", "Provincial"},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -53,7 +53,7 @@ public class ListaActas extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(listaVehiculos);
+        jScrollPane1.setViewportView(actasJTable);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setText("Lista Actas");
@@ -146,11 +146,11 @@ public class ListaActas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTable actasJTable;
     public javax.swing.JButton backBtn;
     public javax.swing.JButton detalleActaBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable listaVehiculos;
     // End of variables declaration//GEN-END:variables
 }

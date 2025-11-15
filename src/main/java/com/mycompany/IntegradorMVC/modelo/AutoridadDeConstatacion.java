@@ -1,11 +1,15 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 
 public class AutoridadDeConstatacion extends Persona {
     private int idPlaca;
     private int idLegajo;
 
+    public AutoridadDeConstatacion() {
+    }
+
+    
     public AutoridadDeConstatacion(int idPlaca, int idLegajo, String nombre, String apellido, int dni, String genero) {
         super(nombre, apellido, dni, genero);
         this.idPlaca = idPlaca;
@@ -30,7 +34,7 @@ public class AutoridadDeConstatacion extends Persona {
 
     @Override
     public String toString() {
-        return "AutoridadDeConstatacion{" + "idPlaca=" + idPlaca + ", idLegajo=" + idLegajo + '}';
+        return nombre + " - " + apellido;
     }
     
     

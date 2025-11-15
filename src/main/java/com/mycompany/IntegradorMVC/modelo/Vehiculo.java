@@ -1,13 +1,18 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 
 public class Vehiculo {
+    private int id;
     private String color;
     private String dominio;
     private int anioPatentamiento;
     private Marca marca;
 
+    public Vehiculo() {
+    }
+
+    
     public Vehiculo(String color, String dominio, int anioPatentamiento, Marca marca) {
         this.color = color;
         this.dominio = dominio;
@@ -15,6 +20,15 @@ public class Vehiculo {
         this.marca = marca;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public String getColor() {
         return color;
     }

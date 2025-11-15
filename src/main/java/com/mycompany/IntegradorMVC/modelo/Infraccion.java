@@ -1,5 +1,5 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 import java.util.ArrayList;
 
@@ -9,6 +9,10 @@ public class Infraccion {
     private double importeInfraccion;
     private ArrayList<TipoDeInfraccion> infraccionNomenclanda = new ArrayList<>();
 
+    public Infraccion() {
+    }
+
+    
     public Infraccion(String descripcionInfraccion, double importeInfraccion) {
         this.descripcionInfraccion = descripcionInfraccion;
         this.importeInfraccion = importeInfraccion;
@@ -48,7 +52,7 @@ public class Infraccion {
     
     @Override
     public String toString() {
-        return "Infraccion{" + "descripcionInfraccion=" + descripcionInfraccion + ", importeInfraccion=" + importeInfraccion + ", infraccionNomenclanda=" + infraccionNomenclanda + '}';
+        return descripcionInfraccion + " - $" + importeInfraccion;
     }
     
     

@@ -266,7 +266,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    public javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable1;
     public javax.swing.JMenuItem nuevaActaJMenuItem;
     public javax.swing.JMenuItem nuevaAutoridadJMenuItem;
     public javax.swing.JMenuItem organizacionesJMenuItem;

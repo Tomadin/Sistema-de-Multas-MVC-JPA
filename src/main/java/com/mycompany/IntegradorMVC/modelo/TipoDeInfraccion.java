@@ -1,5 +1,5 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 
 public class TipoDeInfraccion {

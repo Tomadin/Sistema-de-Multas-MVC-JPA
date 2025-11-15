@@ -1,16 +1,30 @@
 
-package com.mycompany.IntegradorMVC.entidades;
+package com.mycompany.IntegradorMVC.modelo;
 
 
 public class OrganizacionEstatal {
+    private int id;
     private String nombreOrganizacion;
     private String localidad;
 
+    public OrganizacionEstatal() {
+    }
+
+    
     public OrganizacionEstatal(String nombreOrganizacion, String localidad) {
         this.nombreOrganizacion = nombreOrganizacion;
         this.localidad = localidad;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public String getNombreOrganizacion() {
         return nombreOrganizacion;
     }
@@ -29,7 +43,7 @@ public class OrganizacionEstatal {
 
     @Override
     public String toString() {
-        return "OrganizacionEstatal{" + "nombreOrganizacion=" + nombreOrganizacion + ", localidad=" + localidad + '}';
+        return id+" - "+nombreOrganizacion +" - "+localidad;
     }
     
     

@@ -5,6 +5,8 @@
 package com.mycompany.IntegradorMVC.controlador;
 
 import com.mycompany.IntegradorMVC.vista.ListaRutas;
+import com.mycompany.IntegradorMVC.vista.ListaActas;
+import com.mycompany.IntegradorMVC.vista.NuevaActa;
 import com.mycompany.IntegradorMVC.vista.VistaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,12 +49,19 @@ public class VistaPrincipalController extends AbstractController implements Acti
         if (o.equals(vista.rutasJMenuItem)) {
             ListaRutas listaRutas = new ListaRutas();
             RutasController controladorRutas = new RutasController(listaRutas);
+        } else if(o.equals(vista.nuevaActaJMenuItem)){
+            NuevaActa nuevaActa = new NuevaActa();
+            ActaController controladorActas = new ActaController(nuevaActa);
         }
+        
+        vista.setVisible(false);
 
-//        if(o.equals(vista.gestionActaJMenuItem)){
-//            new ListaActasController(this);
-//            vista.setVisible(false);
-//        } else
+        if(o.equals(vista.gestionActaJMenuItem)){
+            ListaActas listaActas = new ListaActas();
+            ListaActasController listaActasController = new ListaActasController(listaActas);
+            vista.setVisible(false);
+        } 
+//        else
 //        if(o.equals(vista.nuevaActaJMenuItem)){
 //            new NuevaActaController(this);
 //            vista.setVisible(false);
