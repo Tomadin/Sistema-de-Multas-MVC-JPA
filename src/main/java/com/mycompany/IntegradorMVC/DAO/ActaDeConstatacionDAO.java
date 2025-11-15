@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -360,87 +361,131 @@ public class ActaDeConstatacionDAO extends SQLQuery {
         return total;
     }
 
-    public ArrayList<ActaDeConstatacion> obtenerActas() {
+    public ArrayList<ActaDeConstatacion> obtenerActas() throws SQLException {
         ArrayList<ActaDeConstatacion> actas = new ArrayList<>();
-        ResultSet resultSet = null;
+        ResultSet rs = null;
 
         try {
             this.conectar();
 
-            String query = "SELECT * FROM Actadeconstatacion";
+            String query
+                    = "SELECT \n"
+                    + "    a.id,\n"
+                    + "    a.fecha_constatacion,\n"
+                    + "    a.fecha_vencimiento_acta,\n"
+                    + "    a.hora_constatacion,\n"
+                    + "    a.lugar,\n"
+                    + "    a.observaciones,\n"
+                    + "    a.importe_total,\n"
+                    + "\n"
+                    + "    -- Organización\n"
+                    + "    o.id AS org_id,\n"
+                    + "    o.nombreOrganizacion AS organizacion_nombre,\n"
+                    + "\n"
+                    + "    -- Vehículo\n"
+                    + "    v.id AS veh_id,\n"
+                    + "    v.dominio AS veh_dominio,\n"
+                    + "\n"
+                    + "    -- Estado del acta\n"
+                    + "    e.id AS estado_id,\n"
+                    + "    e.descripcion AS estado_descripcion,\n"
+                    + "\n"
+                    + "    -- Autoridad\n"
+                    + "    au.dni AS autoridad_id,\n"
+                    + "    au.nombre AS autoridad_nombre,\n"
+                    + "\n"
+                    + "    -- Licencia\n"
+                    + "    l.id AS licencia_id,\n"
+                    + "\n"
+                    + "    -- Ruta\n"
+                    + "    r.id AS ruta_id,\n"
+                    + "    r.nombre AS ruta_nombre\n"
+                    + "\n"
+                    + "FROM actadeconstatacion a\n"
+                    + "LEFT JOIN organizacion o ON a.organizacion_id = o.id\n"
+                    + "LEFT JOIN vehiculo v ON a.vehiculo_id = v.id\n"
+                    + "LEFT JOIN estadodelacta e ON a.estado_acta_id = e.id\n"
+                    + "LEFT JOIN autoridad au ON a.autoridad_id = au.dni\n"
+                    + "LEFT JOIN licencia l ON a.licencia_id = l.id\n"
+                    + "LEFT JOIN ruta r ON a.ruta_id = r.id";
 
             this.consulta = this.conn.prepareStatement(query);
+            rs = consulta.executeQuery();
 
-            resultSet = consulta.executeQuery();
+            while (rs.next()) {
 
-            while (resultSet.next()) {
                 ActaDeConstatacion acta = new ActaDeConstatacion();
-// ID del acta
-                acta.setIdActa(resultSet.getInt("id"));
 
-                // === Fecha de constatación (java.util.Date) ===
-                java.sql.Date fechaConst = resultSet.getDate("fecha_constatacion");
-                acta.setFechaDeLabrado(new java.util.Date(fechaConst.getTime()));
+                // Datos base
+                acta.setIdActa(rs.getInt("id"));
 
-                // === Fecha de vencimiento (java.util.Date) ===
-                java.sql.Date fechaVto = resultSet.getDate("fecha_vencimiento_acta");
-                acta.setFechaVtoPagoVolun(new java.util.Date(fechaVto.getTime()));
+                java.sql.Date f1 = rs.getDate("fecha_constatacion");
+                acta.setFechaDeLabrado(f1 != null ? new java.util.Date(f1.getTime()) : null);
 
-                // === Hora de constatación (LocalDateTime) ===
-                Timestamp tsHora = resultSet.getTimestamp("hora_constatacion");
-                acta.setHoraDeLabrado(
-                        tsHora != null ? tsHora.toLocalDateTime() : null
-                );
+                java.sql.Date f2 = rs.getDate("fecha_vencimiento_acta");
+                acta.setFechaVtoPagoVolun(f2 != null ? new java.util.Date(f2.getTime()) : null);
 
-                // === Campos simples ===
-                acta.setLugarDeConstatacion(resultSet.getString("lugar"));
-                acta.setObservaciones(resultSet.getString("observaciones"));
+                Timestamp ts = rs.getTimestamp("hora_constatacion");
+                acta.setHoraDeLabrado(ts != null ? ts.toLocalDateTime() : null);
 
-                // === Relación OrganizacionEstatal (1..) ===
-                OrganizacionEstatal org = new OrganizacionEstatal();
-                org.setId(resultSet.getInt("organizacion_id"));
-                acta.setOrganizacionEstatal(org);
+                acta.setLugarDeConstatacion(rs.getString("lugar"));
+                acta.setObservaciones(rs.getString("observaciones"));
 
-                // === Relación Vehículo ===
-                Vehiculo veh = new Vehiculo(); //solo puse el getter y setter, no guarde en la BBDD
-                veh.setId(resultSet.getInt("vehiculo_id"));
-                acta.setVehiculo(veh);
+                // Organización
+                if (rs.getInt("org_id") != 0) {
+                    OrganizacionEstatal org = new OrganizacionEstatal();
+                    org.setId(rs.getInt("org_id"));
+                    org.setNombreOrganizacion(rs.getString("organizacion_nombre"));
+                    acta.setOrganizacionEstatal(org);
+                }
 
-                // === Estado del Acta ===
-                EstadoDelActa estado = new EstadoDelActa();
-                
-                acta.setEstadoDelActa(estado);
+                // Vehículo
+                if (rs.getInt("veh_id") != 0) {
+                    Vehiculo v = new Vehiculo();
+                    v.setId(rs.getInt("veh_id"));
+                    v.setDominio(rs.getString("veh_dominio"));
+                    acta.setVehiculo(v);
+                }
 
-                // === Autoridad de constatación ===
-                AutoridadDeConstatacion autoridad = new AutoridadDeConstatacion();
-                autoridad.setDni(resultSet.getInt("autoridad_id"));
-                acta.setAutoridadDeConstatacion(autoridad);
+                // Estado
+                if (rs.getInt("estado_id") != 0) {
+                    EstadoDelActa e = new EstadoDelActa();
+                    e.setId(rs.getInt("estado_id"));
+                    e.setDescripcionEstadoActa(rs.getString("estado_descripcion"));
+                    acta.setEstadoDelActa(e);
+                }
 
-                // === Licencia ===
-                Licencia licencia = new Licencia();
-                licencia.setIdLicencia(resultSet.getInt("licencia_id"));
-                acta.setLicencia(licencia);
+                // Autoridad
+                if (rs.getInt("autoridad_id") != 0) {
+                    AutoridadDeConstatacion au = new AutoridadDeConstatacion();
+                    au.setDni(rs.getInt("autoridad_id"));
+                    au.setNombre(rs.getString("autoridad_nombre"));
+                    acta.setAutoridadDeConstatacion(au);
+                }
 
-                // === Ruta ===
-                Ruta ruta = new Ruta();
-                ruta.setId(resultSet.getInt("id"));
-                acta.setRuta(ruta);
+                // Licencia
+                if (rs.getInt("licencia_id") != 0) {
+                    Licencia l = new Licencia();
+                    l.setIdLicencia(rs.getInt("licencia_id"));
+                    acta.setLicencia(l);
+                }
 
-                // === Infracciones (se cargan luego en otro método) ===
-                acta.setInfracciones(new ArrayList<>());
-
+                // Ruta
+                if (rs.getInt("ruta_id") != 0) {
+                    Ruta r = new Ruta();
+                    r.setId(rs.getInt("ruta_id"));
+                    r.setNombreRuta(rs.getString("ruta_nombre"));
+                    acta.setRuta(r);
+                }
                 actas.add(acta);
-
+                System.out.println(acta.toString());
             }
-
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ActaDeConstatacionDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            this.desconectar(resultSet);
+            this.desconectar(rs);
         }
-
+        
         return actas;
-
     }
-
 }

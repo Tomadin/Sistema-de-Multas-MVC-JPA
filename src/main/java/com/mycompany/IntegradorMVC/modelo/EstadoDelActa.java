@@ -3,6 +3,7 @@ package com.mycompany.IntegradorMVC.modelo;
 
 
 public class EstadoDelActa {
+    private int id;
     private String descripcionEstadoActa;
     private String nombreEstadoActa;
 
@@ -15,6 +16,15 @@ public class EstadoDelActa {
         this.nombreEstadoActa = nombreEstadoActa;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
     public String getDescripcionEstadoActa() {
         return descripcionEstadoActa;
     }

@@ -33,8 +33,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuActas = new javax.swing.JMenu();
@@ -43,60 +41,38 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         verAutoridadesJMenuItem = new javax.swing.JMenuItem();
         nuevaAutoridadJMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        rutasJMenuItem = new javax.swing.JMenuItem();
-        vehiculosJMenuItem = new javax.swing.JMenuItem();
-        organizacionesJMenuItem = new javax.swing.JMenuItem();
-        tiposInfraccionesJMenuItem = new javax.swing.JMenuItem();
-        tiposRutasJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(60, 61, 77));
         jPanel1.setVerifyInputWhenFocusTarget(false);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Bell MT", 0, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sistema de actas");
 
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 0, 36)); // NOI18N
-        jLabel2.setText("Ultimas Infracciones:");
-
-        jTable1.setBackground(new java.awt.Color(247, 250, 253));
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Renault", "Juan Perez", "Grave", "Genaro Ramirez"},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Vehiculo", "Conductor", "Tipo de Infraccion", "Autoridad"
-            }
-        ));
-        jTable1.setSelectionForeground(new java.awt.Color(247, 250, 253));
-        jScrollPane1.setViewportView(jTable1);
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Modelo: DAO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 233, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(0, 233, Short.MAX_VALUE))
-                            .addComponent(jSeparator1))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,16 +83,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        jMenuBar1.setBackground(new java.awt.Color(123, 123, 123));
+        jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jMenu3.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomad\\Documents\\GitHub\\Integrador-MVC\\resources\\casa.png")); // NOI18N
         jMenuBar1.add(jMenu3);
 
+        jMenuActas.setBackground(new java.awt.Color(123, 123, 123));
         jMenuActas.setText("Actas");
         jMenuActas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +119,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuActas);
 
+        jMenu2.setBackground(new java.awt.Color(123, 123, 123));
         jMenu2.setText("Autoridades");
 
         verAutoridadesJMenuItem.setText("Ver Autoridades");
@@ -156,30 +134,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2.add(nuevaAutoridadJMenuItem);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu1.setText("Listas");
-
-        rutasJMenuItem.setText("Rutas");
-        jMenu1.add(rutasJMenuItem);
-
-        vehiculosJMenuItem.setText("Vehiculos");
-        jMenu1.add(vehiculosJMenuItem);
-
-        organizacionesJMenuItem.setText("Organizaciones");
-        jMenu1.add(organizacionesJMenuItem);
-
-        tiposInfraccionesJMenuItem.setText("Tipos de Infracciones");
-        tiposInfraccionesJMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tiposInfraccionesJMenuItemActionPerformed(evt);
-            }
-        });
-        jMenu1.add(tiposInfraccionesJMenuItem);
-
-        tiposRutasJMenuItem.setText("Tipos de Rutas");
-        jMenu1.add(tiposRutasJMenuItem);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -208,10 +162,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void verAutoridadesJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAutoridadesJMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_verAutoridadesJMenuItemActionPerformed
-
-    private void tiposInfraccionesJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tiposInfraccionesJMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tiposInfraccionesJMenuItemActionPerformed
 
     private void jMenuActasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuActasActionPerformed
         // TODO add your handling code here:
@@ -258,22 +208,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem gestionActaJMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenuActas;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     public javax.swing.JMenuItem nuevaActaJMenuItem;
     public javax.swing.JMenuItem nuevaAutoridadJMenuItem;
-    public javax.swing.JMenuItem organizacionesJMenuItem;
-    public javax.swing.JMenuItem rutasJMenuItem;
-    public javax.swing.JMenuItem tiposInfraccionesJMenuItem;
-    public javax.swing.JMenuItem tiposRutasJMenuItem;
-    public javax.swing.JMenuItem vehiculosJMenuItem;
     public javax.swing.JMenuItem verAutoridadesJMenuItem;
     // End of variables declaration//GEN-END:variables
 }

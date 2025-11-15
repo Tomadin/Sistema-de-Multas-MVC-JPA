@@ -13,7 +13,7 @@ public class SQLQuery {
     protected ResultSet datos;
 
     protected final String SERVIDOR = "127.0.0.1";
-    protected final String BD = "integrador-mvc";
+    protected final String BD = "integrador2-mvc";
     protected final String USUARIO = "root";
     protected final String PASSWORD = "root";
 

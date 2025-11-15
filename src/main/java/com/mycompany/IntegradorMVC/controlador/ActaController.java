@@ -205,7 +205,6 @@ public final class ActaController implements ActionListener, PropertyChangeListe
 
         // LLAMADA AL DAO PARA PERSISTENCIA
         actaDAO.guardarActa(nuevaActaConstatacion);
-        System.out.println("bien");
         JOptionPane.showMessageDialog(nuevaActa, "Acta creada exitosamente. Importe final: $" + 100, "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
