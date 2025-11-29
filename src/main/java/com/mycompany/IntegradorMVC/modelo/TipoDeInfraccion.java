@@ -1,14 +1,27 @@
 
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-public class TipoDeInfraccion {
+@Entity
+@Table(name="tiposInfraccion")
+public class TipoDeInfraccion implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_infrac;
     private String descripcionInfraccion;
     private String tipoGravedad;
     private double importeAsignadoInfraccion;
     private double porcentajeDescuento;
 
+    public TipoDeInfraccion() {
+    }
+    
     public TipoDeInfraccion(int id_infrac, String descripcionInfraccion, String tipoGravedad, double importeAsignadoInfraccion, double porcentajeDescuento) {
         this.id_infrac = id_infrac;
         this.descripcionInfraccion = descripcionInfraccion;

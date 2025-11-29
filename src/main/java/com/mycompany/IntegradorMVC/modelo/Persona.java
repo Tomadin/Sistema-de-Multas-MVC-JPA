@@ -1,8 +1,22 @@
 
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-public class Persona {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo")
+public class Persona implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int id;
     protected String nombre;
     protected String apellido;
     protected int dni;
@@ -19,6 +33,10 @@ public class Persona {
         this.genero = genero;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public String getNombre() {
         return nombre;
     }

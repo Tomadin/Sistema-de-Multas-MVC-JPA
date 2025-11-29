@@ -1,10 +1,18 @@
 
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-public class AutoridadDeConstatacion extends Persona {
+@Entity
+@DiscriminatorValue("AUTORIDAD")
+public class AutoridadDeConstatacion extends Persona implements Serializable {
     private int idPlaca;
     private int idLegajo;
+    @Id
+    private Long id;
 
     public AutoridadDeConstatacion() {
     }
@@ -35,6 +43,12 @@ public class AutoridadDeConstatacion extends Persona {
     @Override
     public String toString() {
         return nombre + " - " + apellido;
+    }
+
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
     
     

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="pruebaJPAPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mycompany.IntegradorMVC.modelo.ActaDeConstatacion</class>
+    <class>com.mycompany.IntegradorMVC.modelo.AutoridadDeConstatacion</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Conductor</class>
+    <class>com.mycompany.IntegradorMVC.modelo.EstadoDelActa</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Infraccion</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Licencia</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Marca</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Modelo</class>
+    <class>com.mycompany.IntegradorMVC.modelo.OrganizacionEstatal</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Persona</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Ruta</class>
+    <class>com.mycompany.IntegradorMVC.modelo.TipoDeInfraccion</class>
+    <class>com.mycompany.IntegradorMVC.modelo.TipoRuta</class>
+    <class>com.mycompany.IntegradorMVC.modelo.Vehiculo</class>
+    <class>com.mycompany.IntegradorMVC.persistencia.NewEntity</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/integrador2-mvc?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

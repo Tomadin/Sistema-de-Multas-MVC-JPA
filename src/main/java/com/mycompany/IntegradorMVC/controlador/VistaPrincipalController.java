@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author tomad
  */
-public class VistaPrincipalController extends AbstractController implements ActionListener {
+public class VistaPrincipalController implements ActionListener {
 
     public VistaPrincipal vista;
 
@@ -32,11 +32,6 @@ public class VistaPrincipalController extends AbstractController implements Acti
         vista.verAutoridadesJMenuItem.addActionListener(this);
         vista.nuevaAutoridadJMenuItem.addActionListener(this);
         
-    }
-
-    @Override
-    public void back() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override

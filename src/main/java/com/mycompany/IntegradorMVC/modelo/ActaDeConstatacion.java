@@ -1,31 +1,56 @@
-
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity
+@Table(name = "actas")
+public class ActaDeConstatacion implements Serializable {
 
-public class ActaDeConstatacion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idActa;
+    @OneToMany
+    @JoinColumn(name = "acta_id")
     private ArrayList<Infraccion> infracciones = new ArrayList<>();
     private Date fechaDeLabrado; //era LocalDate
     private Date fechaVtoPagoVolun;
     private LocalDateTime horaDeLabrado;
     private String lugarDeConstatacion;
-    private int idActa;
     private String observaciones;
+    @ManyToOne
+    @JoinColumn(name = "organizacion_id")
     private OrganizacionEstatal organizacionEstatal;
+    @ManyToOne
+    @JoinColumn(name = "vehiculo_id")
     private Vehiculo vehiculo;
+    @ManyToOne
+    @JoinColumn(name = "estado_id")
     private EstadoDelActa estadoDelActa;
+    @ManyToOne
+    @JoinColumn(name = "autoridad_id")
     private AutoridadDeConstatacion autoridadDeConstatacion;
+    @ManyToOne
+    @JoinColumn(name = "licencia_id")
     private Licencia licencia;
+    @ManyToOne
+    @JoinColumn(name = "ruta_id")
     private Ruta ruta;
 
     public ActaDeConstatacion() {
     }
 
-    
     public ActaDeConstatacion(Date fechaDeLabrado, Date fechaVtoPagoVolun, LocalDateTime horaDeLabrado, String lugarDeConstatacion, String observaciones, OrganizacionEstatal organizacionEstatal, Vehiculo vehiculo, EstadoDelActa estadoDelActa, AutoridadDeConstatacion autoridadDeConstatacion, Licencia licencia, Ruta ruta) {
         this.fechaDeLabrado = fechaDeLabrado;
         this.fechaVtoPagoVolun = fechaVtoPagoVolun;
@@ -48,10 +73,10 @@ public class ActaDeConstatacion {
         this.infracciones = infracciones;
     }
 
-    public void addInfraccion(Infraccion infraccion){
+    public void addInfraccion(Infraccion infraccion) {
         this.infracciones.add(infraccion);
     }
-    
+
     public Date getFechaDeLabrado() {
         return fechaDeLabrado;
     }
@@ -152,8 +177,5 @@ public class ActaDeConstatacion {
     public String toString() {
         return "ActaDeConstatacion{" + "infracciones=" + infracciones + ", fechaDeLabrado=" + fechaDeLabrado + ", fechaVtoPagoVolun=" + fechaVtoPagoVolun + ", horaDeLabrado=" + horaDeLabrado + ", lugarDeConstatacion=" + lugarDeConstatacion + ", idActa=" + idActa + ", observaciones=" + observaciones + ", organizacionEstatal=" + organizacionEstatal + ", vehiculo=" + vehiculo + ", estadoDelActa=" + estadoDelActa + ", autoridadDeConstatacion=" + autoridadDeConstatacion + ", licencia=" + licencia + ", ruta=" + ruta + '}';
     }
-    
-    
-    
-    
+
 }

@@ -1,8 +1,13 @@
 
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 
-public class Conductor extends Persona{
+@Entity
+@DiscriminatorValue("CONDUCTOR")
+public class Conductor extends Persona implements Serializable{
     private String domicilio;
 
     public Conductor() {

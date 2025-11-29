@@ -18,6 +18,9 @@ import com.mycompany.IntegradorMVC.modelo.TipoDeInfraccion;
 import com.mycompany.IntegradorMVC.modelo.TipoRuta;
 import com.mycompany.IntegradorMVC.modelo.Vehiculo;
 import com.mycompany.IntegradorMVC.vista.VistaPrincipal;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -66,9 +69,8 @@ public class IntegradorMVC {
 //        infraccion.addInfraccionNomenclada(tipo2);
 //
 //        infraccionDAO.crearInfraccion(infraccion);
-        
-        
-        
+
+
 
         VistaPrincipal vistaPrincipal = new VistaPrincipal();
         VistaPrincipalController controladorVistaPrincipal = new VistaPrincipalController(vistaPrincipal);

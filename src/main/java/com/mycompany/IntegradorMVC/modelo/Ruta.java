@@ -1,17 +1,30 @@
-
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Ruta {
+@Entity
+@Table(name = "rutas")
+public class Ruta implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nombreRuta;
     private String kmRuta;
+    @ManyToOne
+    @JoinColumn(name = "tipo_ruta_id")
     private TipoRuta tipoRuta;
 
     public Ruta() {
     }
 
-    
     public Ruta(String nombreRuta, String kmRuta, TipoRuta tipoRuta) {
         this.nombreRuta = nombreRuta;
         this.kmRuta = kmRuta;
@@ -26,7 +39,6 @@ public class Ruta {
         this.id = id;
     }
 
-    
     public String getNombreRuta() {
         return nombreRuta;
     }
@@ -56,14 +68,16 @@ public class Ruta {
         return "Ruta{" + "nombreRuta=" + nombreRuta + ", kmRuta=" + kmRuta + ", tipoRuta=" + tipoRuta + '}';
     }
 
-    public boolean esRutaInternacional(){
+    public boolean esRutaInternacional() {
         return false;
     }
-    public boolean esRutaNacional(){
+
+    public boolean esRutaNacional() {
         return true;
     }
-    public boolean esRutaProvincial(){
+
+    public boolean esRutaProvincial() {
         return false;
     }
-    
+
 }

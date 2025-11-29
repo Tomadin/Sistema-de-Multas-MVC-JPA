@@ -1,18 +1,31 @@
-
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Vehiculo {
+@Entity
+@Table(name = "vehiculos")
+public class Vehiculo implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String color;
     private String dominio;
     private int anioPatentamiento;
+    @ManyToOne
+    @JoinColumn(name = "marca_id")
     private Marca marca;
 
     public Vehiculo() {
     }
 
-    
     public Vehiculo(String color, String dominio, int anioPatentamiento, Marca marca) {
         this.color = color;
         this.dominio = dominio;
@@ -28,7 +41,6 @@ public class Vehiculo {
         this.id = id;
     }
 
-    
     public String getColor() {
         return color;
     }
@@ -65,6 +77,5 @@ public class Vehiculo {
     public String toString() {
         return "Vehiculo{" + "color=" + color + ", dominio=" + dominio + ", anioPatentamiento=" + anioPatentamiento + ", marca=" + marca + '}';
     }
-    
-    
+
 }

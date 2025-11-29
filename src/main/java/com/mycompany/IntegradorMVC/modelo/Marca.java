@@ -1,14 +1,36 @@
-
 package com.mycompany.IntegradorMVC.modelo;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class Marca {
+@Entity
+@Table(name = "marcas")
+public class Marca implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String marcaAuto;
+    @ManyToOne
+    @JoinColumn(name = "modelo_id")
     private Modelo modelo;
 
+    public Marca() {
+    }
+    
     public Marca(String marcaAuto, Modelo modelo) {
         this.marcaAuto = marcaAuto;
         this.modelo = modelo;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getMarcaAuto() {
@@ -26,8 +48,8 @@ public class Marca {
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
-    
-    private String queModelo(){
+
+    private String queModelo() {
         return modelo.getModeloAuto();
     }
 }

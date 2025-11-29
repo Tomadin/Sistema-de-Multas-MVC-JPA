@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 
 public class AutoridadDAO extends SQLQuery {
-    
-    
+    @PersistenceContext
+    EntityManager em;
     public boolean crearAutoridad(AutoridadDeConstatacion autoridad) throws SQLException{
         int result = 0;
         
