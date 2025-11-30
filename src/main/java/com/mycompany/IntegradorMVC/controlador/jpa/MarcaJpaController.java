@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.persistencia;
+package com.mycompany.IntegradorMVC.controlador.jpa;
 
-import com.mycompany.IntegradorMVC.modelo.OrganizacionEstatal;
-import com.mycompany.IntegradorMVC.persistencia.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.modelo.Marca;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,11 +17,11 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Tomadin
+ * @author tomad
  */
-public class OrganizacionEstatalJpaController implements Serializable {
+public class MarcaJpaController implements Serializable {
 
-    public OrganizacionEstatalJpaController(EntityManagerFactory emf) {
+    public MarcaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,12 +30,12 @@ public class OrganizacionEstatalJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(OrganizacionEstatal organizacionEstatal) {
+    public void create(Marca marca) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(organizacionEstatal);
+            em.persist(marca);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +44,19 @@ public class OrganizacionEstatalJpaController implements Serializable {
         }
     }
 
-    public void edit(OrganizacionEstatal organizacionEstatal) throws NonexistentEntityException, Exception {
+    public void edit(Marca marca) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            organizacionEstatal = em.merge(organizacionEstatal);
+            marca = em.merge(marca);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = organizacionEstatal.getId();
-                if (findOrganizacionEstatal(id) == null) {
-                    throw new NonexistentEntityException("The organizacionEstatal with id " + id + " no longer exists.");
+                int id = marca.getId();
+                if (findMarca(id) == null) {
+                    throw new NonexistentEntityException("The marca with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +72,14 @@ public class OrganizacionEstatalJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            OrganizacionEstatal organizacionEstatal;
+            Marca marca;
             try {
-                organizacionEstatal = em.getReference(OrganizacionEstatal.class, id);
-                organizacionEstatal.getId();
+                marca = em.getReference(Marca.class, id);
+                marca.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The organizacionEstatal with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The marca with id " + id + " no longer exists.", enfe);
             }
-            em.remove(organizacionEstatal);
+            em.remove(marca);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +88,19 @@ public class OrganizacionEstatalJpaController implements Serializable {
         }
     }
 
-    public List<OrganizacionEstatal> findOrganizacionEstatalEntities() {
-        return findOrganizacionEstatalEntities(true, -1, -1);
+    public List<Marca> findMarcaEntities() {
+        return findMarcaEntities(true, -1, -1);
     }
 
-    public List<OrganizacionEstatal> findOrganizacionEstatalEntities(int maxResults, int firstResult) {
-        return findOrganizacionEstatalEntities(false, maxResults, firstResult);
+    public List<Marca> findMarcaEntities(int maxResults, int firstResult) {
+        return findMarcaEntities(false, maxResults, firstResult);
     }
 
-    private List<OrganizacionEstatal> findOrganizacionEstatalEntities(boolean all, int maxResults, int firstResult) {
+    private List<Marca> findMarcaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(OrganizacionEstatal.class));
+            cq.select(cq.from(Marca.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +112,20 @@ public class OrganizacionEstatalJpaController implements Serializable {
         }
     }
 
-    public OrganizacionEstatal findOrganizacionEstatal(int id) {
+    public Marca findMarca(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(OrganizacionEstatal.class, id);
+            return em.find(Marca.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getOrganizacionEstatalCount() {
+    public int getMarcaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<OrganizacionEstatal> rt = cq.from(OrganizacionEstatal.class);
+            Root<Marca> rt = cq.from(Marca.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

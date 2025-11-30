@@ -18,11 +18,18 @@
     <class>com.mycompany.IntegradorMVC.modelo.Vehiculo</class>
     <class>com.mycompany.IntegradorMVC.persistencia.NewEntity</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/integrador2-mvc?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/prueba-mvc?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="root"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <!--
+            <property name="eclipselink.weaving" value="false"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+                        
+                                    -->
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

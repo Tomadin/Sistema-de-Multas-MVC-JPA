@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="organizaciones")
+@Table(name="organizacion")
 public class OrganizacionEstatal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

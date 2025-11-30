@@ -111,10 +111,7 @@
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="descripcionTextField" max="32767" attributes="0"/>
-                                      <Component id="importeJComboBox" pref="177" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="descripcionTextField" min="-2" pref="177" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -154,10 +151,7 @@
                               <Component id="descripcionTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="importeJComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -609,7 +603,7 @@
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Conductor">
+                        <TitledBorder title="Licencia&#xa;">
                           <Color PropertyName="color" blue="fb" green="fb" red="fd" type="rgb"/>
                         </TitledBorder>
                       </Border>
@@ -633,7 +627,7 @@
                                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="idLicenciaTextField" pref="177" max="32767" attributes="0"/>
+                                              <Component id="numeroLicenciaTextField" pref="177" max="32767" attributes="0"/>
                                               <Component id="fechaVTOJDateChooser" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -648,7 +642,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="idLicenciaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="numeroLicenciaTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -675,10 +669,10 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="fb" green="fb" red="fd" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="id:"/>
+                        <Property name="text" type="java.lang.String" value="Numero:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="idLicenciaTextField">
+                    <Component class="javax.swing.JTextField" name="numeroLicenciaTextField">
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                       </AuxValues>
@@ -842,23 +836,6 @@
             <Property name="text" type="java.lang.String" value="Tipo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="importeJComboBox">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="-"/>
-                <StringItem index="1" value="$1.000"/>
-                <StringItem index="2" value="$5.000"/>
-                <StringItem index="3" value="$10.000"/>
-                <StringItem index="4" value="$500.000"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
         <Container class="javax.swing.JPanel" name="jPanel6">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -866,7 +843,7 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Conductor">
+                <TitledBorder title="Autoridad de Constataci&#xf3;n">
                   <Color PropertyName="color" blue="fb" green="fb" red="fd" type="rgb"/>
                 </TitledBorder>
               </Border>

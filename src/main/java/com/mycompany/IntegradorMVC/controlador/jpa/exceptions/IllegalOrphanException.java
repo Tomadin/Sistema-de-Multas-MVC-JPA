@@ -1,4 +1,4 @@
-package com.mycompany.IntegradorMVC.persistencia.exceptions;
+package com.mycompany.IntegradorMVC.controlador.jpa.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

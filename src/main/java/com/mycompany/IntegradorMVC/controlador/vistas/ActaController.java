@@ -1,9 +1,11 @@
-package com.mycompany.IntegradorMVC.controlador;
+package com.mycompany.IntegradorMVC.controlador.vistas;
 
-import com.mycompany.IntegradorMVC.DAO.ActaDeConstatacionDAO;
-import com.mycompany.IntegradorMVC.DAO.AutoridadDAO;
-import com.mycompany.IntegradorMVC.DAO.InfraccionDAO;
-import com.mycompany.IntegradorMVC.DAO.OrganizacionDAO;
+import com.mycompany.IntegradorMVC.controlador.jpa.ActaDeConstatacionJpaController;
+import com.mycompany.IntegradorMVC.controlador.jpa.AutoridadDeConstatacionJpaController;
+import com.mycompany.IntegradorMVC.controlador.jpa.ConductorJpaController;
+import com.mycompany.IntegradorMVC.controlador.jpa.InfraccionJpaController;
+import com.mycompany.IntegradorMVC.controlador.jpa.LicenciaJpaController;
+import com.mycompany.IntegradorMVC.controlador.jpa.OrganizacionEstatalJpaController;
 import com.mycompany.IntegradorMVC.modelo.ActaDeConstatacion;
 import com.mycompany.IntegradorMVC.modelo.AutoridadDeConstatacion;
 import com.mycompany.IntegradorMVC.modelo.Conductor;
@@ -25,35 +27,35 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public final class ActaController implements ActionListener, PropertyChangeListener, ListSelectionListener { 
+public final class ActaController implements ActionListener, PropertyChangeListener, ListSelectionListener {
 
     private final NuevaActa nuevaActa;
-    private final InfraccionDAO infraccionDAO;
-    private final OrganizacionDAO organizacionDAO;
-    private final AutoridadDAO autoridadDAO;
-    private final ActaDeConstatacionDAO actaDAO;
+    private final InfraccionJpaController infraccionJpaController;
+    private final OrganizacionEstatalJpaController organizacionJpaController;
+    private final AutoridadDeConstatacionJpaController autoridadJpaController;
+    private final ActaDeConstatacionJpaController actaJpaController;
 
     public ActaController(NuevaActa nuevaActa) {
         this.nuevaActa = nuevaActa;
         this.nuevaActa.setVisible(true);
-        this.infraccionDAO = new InfraccionDAO();
-        this.organizacionDAO = new OrganizacionDAO();
-        this.autoridadDAO = new AutoridadDAO();
-        this.actaDAO = new ActaDeConstatacionDAO();
-
-        cargarListasSeleccion();
+        this.infraccionJpaController = new InfraccionJpaController();
+        this.organizacionJpaController = new OrganizacionEstatalJpaController();
+        this.autoridadJpaController = new AutoridadDeConstatacionJpaController();
+        this.actaJpaController = new ActaDeConstatacionJpaController();
 
         //JComboBox
-        nuevaActa.importeJComboBox.addActionListener(this);
         nuevaActa.tipoRutaJComboBox1.addActionListener(this);
         nuevaActa.autoridadConstatacionJList.addListSelectionListener(this);
 
@@ -87,19 +89,22 @@ public final class ActaController implements ActionListener, PropertyChangeListe
         nuevaActa.dniTextField.addActionListener(this);
         nuevaActa.generoTextField.addActionListener(this);
         nuevaActa.domicilioTextField.addActionListener(this);
-        nuevaActa.idLicenciaTextField.addActionListener(this);
+        nuevaActa.numeroLicenciaTextField.addActionListener(this);
         nuevaActa.lugarTextField.addActionListener(this);
         nuevaActa.puntosTextField.addActionListener(this);
         nuevaActa.horaTextField.addActionListener(this);
+        SwingUtilities.invokeLater(() -> {
+            cargarListasSeleccion();
+        });
     }
 
-    private void crearNuevaActa() {
+    private void crearNuevaActa() throws Exception {
         // OBTENCIÓN Y VALIDACIÓN DE DATOS SIMPLES
         String rutaStr = nuevaActa.rutaTextField.getText();
         String kilometroStr = nuevaActa.kilometroTextField2.getText();
         String colorStr = nuevaActa.colorTextField.getText();
         String anioStr = nuevaActa.anioTextField.getText();
-        String idLicenciaStr = nuevaActa.idLicenciaTextField.getText();
+        String numeroLicencia = nuevaActa.numeroLicenciaTextField.getText();
         String puntosStr = nuevaActa.puntosTextField.getText();
         String horaStr = nuevaActa.horaTextField.getText();
         String domicilio = nuevaActa.domicilioTextField.getText();
@@ -108,7 +113,7 @@ public final class ActaController implements ActionListener, PropertyChangeListe
         String dni = nuevaActa.dniTextField.getText();
         String genero = nuevaActa.generoTextField.getText();
 
-        if (rutaStr.isEmpty() || anioStr.isEmpty() || idLicenciaStr.isEmpty()) {
+        if (rutaStr.isEmpty() || anioStr.isEmpty() || numeroLicencia.isEmpty()) {
             JOptionPane.showMessageDialog(nuevaActa, "Campos Ruta, Año o ID Licencia obligatorios.", "Error de Datos", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -132,7 +137,13 @@ public final class ActaController implements ActionListener, PropertyChangeListe
             return;
         }
 
+        // ⭐ BUSCAR LAS ENTIDADES EXISTENTES POR ID para que estén en contexto
+        AutoridadDeConstatacionJpaController autoridadJpaController = new AutoridadDeConstatacionJpaController();
         AutoridadDeConstatacion autoridadSeleccionada = (AutoridadDeConstatacion) nuevaActa.autoridadConstatacionJList.getSelectedValue();
+
+        System.out.println(autoridadJpaController.find(autoridadSeleccionada.getDni()));
+        System.out.println("LINEA 146: " + autoridadSeleccionada.toString());
+
         if (autoridadSeleccionada == null) {
             JOptionPane.showMessageDialog(nuevaActa, "Debe seleccionar una Autoridad.", "Error de Selección", JOptionPane.ERROR_MESSAGE);
             return;
@@ -174,19 +185,51 @@ public final class ActaController implements ActionListener, PropertyChangeListe
                 new TipoRuta("Buen estado", tipoRutaSeleccionado)
         );
 
-        // LICENCIA
-        Licencia licencia = new Licencia(
-                Integer.parseInt(idLicenciaStr),
-                nuevaActa.fechaVTOJDateChooser.getDate(), // java.util.Date
-                puntosLicencia
-        );
-        licencia.setConductor(new Conductor(domicilio, nombre, apellido, Integer.parseInt(dni), genero));
+        // ⭐ CREAR CONDUCTOR (NO guardar aún)
+        // ⭐ BUSCAR O CREAR CONDUCTOR
+        ConductorJpaController conductorJpaController = new ConductorJpaController();
+        Conductor conductor = conductorJpaController.find(Integer.valueOf(dni));
 
+        if (conductor == null) {
+            // El conductor no existe, crear uno nuevo
+            conductor = new Conductor(
+                    domicilio, nombre, apellido,
+                    Integer.parseInt(dni), genero
+            );
+        } else {
+            // El conductor existe, actualizar sus datos si es necesario
+            conductor.setDomicilio(domicilio);
+            conductor.setNombre(nombre);
+            conductor.setApellido(apellido);
+            conductor.setGenero(genero);
+        }
+
+        // ⭐ BUSCAR O CREAR LICENCIA
+        LicenciaJpaController licenciaJpaController = new LicenciaJpaController();
+        Licencia licencia = licenciaJpaController.find(Integer.parseInt(numeroLicencia));
+
+        if (licencia == null) {
+            // La licencia no existe, crear una nueva
+            licencia = new Licencia(
+                    Integer.parseInt(numeroLicencia),
+                    nuevaActa.fechaVTOJDateChooser.getDate(),
+                    puntosLicencia
+            );
+            licencia.setConductor(conductor);
+        } else {
+            // La licencia existe, verificar que pertenezca al conductor correcto
+            if (licencia.getConductor() == null
+                    || licencia.getConductor().getDni() != conductor.getDni()) {
+                licencia.setConductor(conductor);
+            }
+        }
         // INFRACCION
         Infraccion infraccionBase = (Infraccion) nuevaActa.infraccionJList.getSelectedValue();
 
+        double monto = infraccionBase.getImporteInfraccion();
+        
+        
         // CONSTRUCCIÓN FINAL DEL ACTADECONSTATACION
-
         ActaDeConstatacion nuevaActaConstatacion = new ActaDeConstatacion(
                 nuevaActa.fechaConstatacionJDateChooser.getDate(),
                 nuevaActa.fechaVTOActaConstatacionJDateChooser.getDate(),
@@ -198,14 +241,35 @@ public final class ActaController implements ActionListener, PropertyChangeListe
                 new EstadoDelActa("ACTIVO", "Acta generada"), // Estado inicial
                 autoridadSeleccionada,
                 licencia,
-                ruta 
+                ruta
         );
 
+        nuevaActaConstatacion.setAutoridadDeConstatacion(autoridadSeleccionada);
+
+        // ⭐ AGREGAR TODAS LAS INFRACCIONES
+        for (Infraccion infraccion : infraccionesSeleccionadas) {
+            nuevaActaConstatacion.addInfraccion(infraccion);
+        }
         nuevaActaConstatacion.addInfraccion(infraccionBase);
 
-        // LLAMADA AL DAO PARA PERSISTENCIA
-        actaDAO.guardarActa(nuevaActaConstatacion);
-        JOptionPane.showMessageDialog(nuevaActa, "Acta creada exitosamente. Importe final: $" + 100, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        if (autoridadSeleccionada != null) {
+            AutoridadDeConstatacion autoridadEnBD = autoridadJpaController.find(autoridadSeleccionada.getDni());
+
+            if (autoridadEnBD == null) {
+                // Opción 1: Persistir la autoridad si no existía
+                autoridadJpaController.create(autoridadSeleccionada);
+                autoridadEnBD = autoridadSeleccionada;
+            }
+
+            nuevaActaConstatacion.setAutoridadDeConstatacion(autoridadEnBD);
+        } else {
+            JOptionPane.showMessageDialog(nuevaActa, "Debe seleccionar una Autoridad.", "Error de Selección", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // LLAMADA AL JPA PARA PERSISTENCIA
+        actaJpaController.create(nuevaActaConstatacion);
+        JOptionPane.showMessageDialog(nuevaActa, "Acta creada exitosamente. Importe final: $" + monto, "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
@@ -217,7 +281,11 @@ public final class ActaController implements ActionListener, PropertyChangeListe
 
             if (o == nuevaActa.crearBtn) {
                 System.out.println("-> Botón Crear presionado. Iniciando guardado.");
-                crearNuevaActa();
+                try {
+                    crearNuevaActa();
+                } catch (Exception ex) {
+                    Logger.getLogger(ActaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } else if (o == nuevaActa.backBtn) {
                 VistaPrincipal vistaPrincipal = new VistaPrincipal();
                 VistaPrincipalController controladorVistaPrincipal = new VistaPrincipalController(vistaPrincipal);
@@ -238,16 +306,9 @@ public final class ActaController implements ActionListener, PropertyChangeListe
             } else if (o == nuevaActa.marcaTextField) {
                 System.out.println("-> Texto de Marca finalizado.");
             }
-            
 
             // Manejo de ComboBoxes (JComboBox)
-        } else if (o instanceof JComboBox) {
-            if (o == nuevaActa.importeJComboBox) {
-                System.out.println("-> Importe seleccionado cambiado.");
-            } else if (o == nuevaActa.tipoRutaJComboBox1) {
-                System.out.println("-> Tipo de Ruta seleccionado cambiado.");
-            }
-        }
+        } 
     }
 
     @Override
@@ -281,39 +342,65 @@ public final class ActaController implements ActionListener, PropertyChangeListe
         if (origenLista == nuevaActa.infraccionJList) {
             System.out.println("-> Selección de Infracciones cambiada.");
 
-        } else if (origenLista == nuevaActa.organizacionJList) { 
+        } else if (origenLista == nuevaActa.organizacionJList) {
             System.out.println("-> Selección de Organización cambiada.");
-            
+
         } else if (origenLista == nuevaActa.autoridadConstatacionJList) {
             System.out.println("-> Selección de Autoridad de Constatación cambiada.");
+            System.out.println(nuevaActa.autoridadConstatacionJList.getSelectedValue().toString());
         }
     }
 
     public void cargarListasSeleccion() {
 
-        // --- INFRACCIONES ---
-        List<Infraccion> infracciones = infraccionDAO.obtenerInfracciones();
-        DefaultListModel<Infraccion> modeloInfraccion = new DefaultListModel<>();
-        for (Infraccion i : infracciones) {
-            modeloInfraccion.addElement(i);
-        }
-        nuevaActa.infraccionJList.setModel(modeloInfraccion);
+//        cargarInfracciones();
+        System.out.println("=== INICIANDO CARGA DE LISTAS ===");
+        try {
+            // --- INFRACCIONES ---
+            System.out.println("📋 Cargando infracciones...");
+            List<Infraccion> infracciones = infraccionJpaController.findAll();
+            System.out.println("✅ Infracciones encontradas: " + infracciones.size());
+            DefaultListModel<Infraccion> modeloInfraccion = new DefaultListModel<>();
+            for (Infraccion i : infracciones) {
+                modeloInfraccion.addElement(i);
+            }
+            nuevaActa.infraccionJList.setModel(modeloInfraccion);
+            System.out.println("✅ JList infracciones configurado con " + modeloInfraccion.size() + " elementos");
 
-        // --- ORGANIZACIONES ---
-        List<OrganizacionEstatal> organizaciones = organizacionDAO.obtenerOrganizaciones();
-        DefaultListModel<OrganizacionEstatal> modeloOrganizacion = new DefaultListModel<>();
-        for (OrganizacionEstatal org : organizaciones) {
-            modeloOrganizacion.addElement(org);
-        }
-        nuevaActa.organizacionJList.setModel(modeloOrganizacion);
+            // --- ORGANIZACIONES ---
+            System.out.println("\n🏢 Cargando organizaciones...");
+            List<OrganizacionEstatal> organizaciones = organizacionJpaController.findAll();
+            System.out.println("✅ Organizaciones encontradas: " + organizaciones.size());
 
-        // --- AUTORIDADES DE CONSTATACIÓN ---
-        List<AutoridadDeConstatacion> autoridades = autoridadDAO.buscarAutoridades();
-        DefaultListModel<AutoridadDeConstatacion> modeloAutoridad = new DefaultListModel<>();
-        for (AutoridadDeConstatacion a : autoridades) {
-            modeloAutoridad.addElement(a);
+            DefaultListModel<OrganizacionEstatal> modeloOrganizacion = new DefaultListModel<>();
+            for (OrganizacionEstatal org : organizaciones) {
+                modeloOrganizacion.addElement(org);
+            }
+            nuevaActa.organizacionJList.setModel(modeloOrganizacion);
+            System.out.println("✅ JList organizaciones configurado");
+            // --- AUTORIDADES DE CONSTATACIÓN ---
+            System.out.println("\n👮 Cargando autoridades...");
+            List<AutoridadDeConstatacion> autoridades = autoridadJpaController.findAll();
+            System.out.println("✅ Autoridades encontradas: " + autoridades.size());
+
+            DefaultListModel<AutoridadDeConstatacion> modeloAutoridad = new DefaultListModel<>();
+            for (AutoridadDeConstatacion a : autoridades) {
+                modeloAutoridad.addElement(a);
+            }
+            System.out.println("✅ JList autoridades configurado");
+
+            nuevaActa.autoridadConstatacionJList.setModel(modeloAutoridad);
+            System.out.println("\n=== CARGA COMPLETADA ===\n");
+        } catch (Exception ex) {
+            System.err.println("❌ ERROR en cargarListasSeleccion: " + ex.getMessage());
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(nuevaActa,
+                    "Error cargando datos: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        nuevaActa.autoridadConstatacionJList.setModel(modeloAutoridad);
+
     }
 
+    
 }

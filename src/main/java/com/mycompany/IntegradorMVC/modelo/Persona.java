@@ -14,11 +14,11 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo")
 public class Persona implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+
     protected String nombre;
     protected String apellido;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int dni;
     protected String genero;
 
@@ -33,9 +33,6 @@ public class Persona implements Serializable {
         this.genero = genero;
     }
 
-    public int getId() {
-        return id;
-    }
     
     public String getNombre() {
         return nombre;

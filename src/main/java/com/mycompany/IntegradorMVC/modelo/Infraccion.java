@@ -10,21 +10,23 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import javax.persistence.Column;
 
 @Entity
-@Table(name = "infracciones")
+@Table(name = "infraccion")
 public class Infraccion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id") 
     private int id;
-    private String descripcionInfraccion;
+    private String descripcion;
     private double importeInfraccion;
     @ManyToMany
     @JoinTable(
-            name = "infraccion_tipo",
-            joinColumns = @JoinColumn(name = "infraccion_id"),
-            inverseJoinColumns = @JoinColumn(name = "tipo_infraccion_id")
+        name = "infraccion_tipoinfraccion",   // ← nombre REAL
+        joinColumns = @JoinColumn(name = "infraccion_id"), // ← REAL
+        inverseJoinColumns = @JoinColumn(name = "tipo_infraccion_id") // ← REAL
     )
     private ArrayList<TipoDeInfraccion> infraccionNomenclanda = new ArrayList<>();
 
@@ -32,7 +34,7 @@ public class Infraccion implements Serializable {
     }
 
     public Infraccion(String descripcionInfraccion, double importeInfraccion) {
-        this.descripcionInfraccion = descripcionInfraccion;
+        this.descripcion = descripcionInfraccion;
         this.importeInfraccion = importeInfraccion;
     }
 
@@ -41,11 +43,11 @@ public class Infraccion implements Serializable {
     }
 
     public String getDescripcionInfraccion() {
-        return descripcionInfraccion;
+        return descripcion;
     }
 
     public void setDescripcionInfraccion(String descripcionInfraccion) {
-        this.descripcionInfraccion = descripcionInfraccion;
+        this.descripcion = descripcionInfraccion;
     }
 
     public double getImporteInfraccion() {
@@ -74,7 +76,7 @@ public class Infraccion implements Serializable {
 
     @Override
     public String toString() {
-        return descripcionInfraccion + " - $" + importeInfraccion;
+        return descripcion + " - $" + importeInfraccion;
     }
 
 }

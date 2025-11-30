@@ -10,25 +10,32 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
 @Entity
-@Table(name = "licencias")
+@Table(name = "licencia")
 public class Licencia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int idLicencia;
+    private int numeroLicencia;
+    
+    @Column(name = "fecha_vencimiento")
     private Date fechaDeVto;
+    @Column(name = "puntos")
     private int puntosInicialesLicencia;
-    @OneToOne
-    @JoinColumn(name = "conductor_id")
-    private Conductor conductor = new Conductor();
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "conductor_dni", referencedColumnName = "dni")
+    private Conductor conductor;
 
     public Licencia() {
     }
 
-    public Licencia(int idLicencia, Date fechaDeVto, int puntosInicialesLicencia) {
-        this.idLicencia = idLicencia;
+    public Licencia(int numeroLicencia, Date fechaDeVto, int puntosInicialesLicencia) {
+        this.numeroLicencia = numeroLicencia;
         this.fechaDeVto = fechaDeVto;
         this.puntosInicialesLicencia = puntosInicialesLicencia;
     }
@@ -51,6 +58,14 @@ public class Licencia implements Serializable {
 
     public int getPuntosInicialesLicencia() {
         return puntosInicialesLicencia;
+    }
+
+    public int getNumeroLicencia() {
+        return numeroLicencia;
+    }
+
+    public void setNumeroLicencia(int numeroLicencia) {
+        this.numeroLicencia = numeroLicencia;
     }
 
     public void setPuntosInicialesLicencia(int puntosInicialesLicencia) {

@@ -1,4 +1,4 @@
-package com.mycompany.IntegradorMVC.persistencia.exceptions;
+package com.mycompany.IntegradorMVC.controlador.jpa.exceptions;
 
 public class PreexistingEntityException extends Exception {
     public PreexistingEntityException(String message, Throwable cause) {

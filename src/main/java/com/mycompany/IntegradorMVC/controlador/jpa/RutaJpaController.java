@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.persistencia;
+package com.mycompany.IntegradorMVC.controlador.jpa;
 
-import com.mycompany.IntegradorMVC.modelo.Persona;
-import com.mycompany.IntegradorMVC.persistencia.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.modelo.Ruta;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,11 +17,11 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Tomadin
+ * @author tomad
  */
-public class PersonaJpaController implements Serializable {
+public class RutaJpaController implements Serializable {
 
-    public PersonaJpaController(EntityManagerFactory emf) {
+    public RutaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,12 +30,12 @@ public class PersonaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Persona persona) {
+    public void create(Ruta ruta) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(persona);
+            em.persist(ruta);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +44,19 @@ public class PersonaJpaController implements Serializable {
         }
     }
 
-    public void edit(Persona persona) throws NonexistentEntityException, Exception {
+    public void edit(Ruta ruta) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            persona = em.merge(persona);
+            ruta = em.merge(ruta);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = persona.getId();
-                if (findPersona(id) == null) {
-                    throw new NonexistentEntityException("The persona with id " + id + " no longer exists.");
+                int id = ruta.getId();
+                if (findRuta(id) == null) {
+                    throw new NonexistentEntityException("The ruta with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +72,14 @@ public class PersonaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Persona persona;
+            Ruta ruta;
             try {
-                persona = em.getReference(Persona.class, id);
-                persona.getId();
+                ruta = em.getReference(Ruta.class, id);
+                ruta.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The persona with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The ruta with id " + id + " no longer exists.", enfe);
             }
-            em.remove(persona);
+            em.remove(ruta);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +88,19 @@ public class PersonaJpaController implements Serializable {
         }
     }
 
-    public List<Persona> findPersonaEntities() {
-        return findPersonaEntities(true, -1, -1);
+    public List<Ruta> findRutaEntities() {
+        return findRutaEntities(true, -1, -1);
     }
 
-    public List<Persona> findPersonaEntities(int maxResults, int firstResult) {
-        return findPersonaEntities(false, maxResults, firstResult);
+    public List<Ruta> findRutaEntities(int maxResults, int firstResult) {
+        return findRutaEntities(false, maxResults, firstResult);
     }
 
-    private List<Persona> findPersonaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Ruta> findRutaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Persona.class));
+            cq.select(cq.from(Ruta.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +112,20 @@ public class PersonaJpaController implements Serializable {
         }
     }
 
-    public Persona findPersona(int id) {
+    public Ruta findRuta(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Persona.class, id);
+            return em.find(Ruta.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getPersonaCount() {
+    public int getRutaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Persona> rt = cq.from(Persona.class);
+            Root<Ruta> rt = cq.from(Ruta.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

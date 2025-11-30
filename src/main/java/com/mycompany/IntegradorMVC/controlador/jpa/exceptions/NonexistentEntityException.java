@@ -1,4 +1,4 @@
-package com.mycompany.IntegradorMVC.persistencia.exceptions;
+package com.mycompany.IntegradorMVC.controlador.jpa.exceptions;
 
 public class NonexistentEntityException extends Exception {
     public NonexistentEntityException(String message, Throwable cause) {

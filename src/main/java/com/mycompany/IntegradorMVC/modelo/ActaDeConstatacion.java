@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.persistence.CascadeType;
 
 @Entity
 @Table(name = "actas")
@@ -21,7 +22,7 @@ public class ActaDeConstatacion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idActa;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "acta_id")
     private ArrayList<Infraccion> infracciones = new ArrayList<>();
     private Date fechaDeLabrado; //era LocalDate
@@ -29,22 +30,22 @@ public class ActaDeConstatacion implements Serializable {
     private LocalDateTime horaDeLabrado;
     private String lugarDeConstatacion;
     private String observaciones;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "organizacion_id")
     private OrganizacionEstatal organizacionEstatal;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vehiculo_id")
     private Vehiculo vehiculo;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "estado_id")
     private EstadoDelActa estadoDelActa;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "autoridad_id")
     private AutoridadDeConstatacion autoridadDeConstatacion;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "licencia_id")
     private Licencia licencia;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ruta_id")
     private Ruta ruta;
 

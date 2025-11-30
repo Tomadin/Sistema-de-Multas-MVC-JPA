@@ -1,30 +1,8 @@
 package com.mycompany.IntegradorMVC;
 
-import com.mycompany.IntegradorMVC.DAO.AutoridadDAO;
-import com.mycompany.IntegradorMVC.DAO.InfraccionDAO;
-import com.mycompany.IntegradorMVC.DAO.TipoDeInfraccionDAO;
-import com.mycompany.IntegradorMVC.controlador.VistaPrincipalController;
-import com.mycompany.IntegradorMVC.modelo.ActaDeConstatacion;
-import com.mycompany.IntegradorMVC.modelo.AutoridadDeConstatacion;
-import com.mycompany.IntegradorMVC.modelo.Conductor;
-import com.mycompany.IntegradorMVC.modelo.EstadoDelActa;
-import com.mycompany.IntegradorMVC.modelo.Infraccion;
-import com.mycompany.IntegradorMVC.modelo.Licencia;
-import com.mycompany.IntegradorMVC.modelo.Marca;
-import com.mycompany.IntegradorMVC.modelo.Modelo;
-import com.mycompany.IntegradorMVC.modelo.OrganizacionEstatal;
-import com.mycompany.IntegradorMVC.modelo.Ruta;
-import com.mycompany.IntegradorMVC.modelo.TipoDeInfraccion;
-import com.mycompany.IntegradorMVC.modelo.TipoRuta;
-import com.mycompany.IntegradorMVC.modelo.Vehiculo;
+import com.mycompany.IntegradorMVC.controlador.vistas.VistaPrincipalController;
 import com.mycompany.IntegradorMVC.vista.VistaPrincipal;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 
 /**
  *
@@ -42,36 +20,6 @@ import java.time.Month;
 public class IntegradorMVC {
 
     public static void main(String[] args) throws SQLException {
-
-        // AutoridadDAO autoridadDAO = new AutoridadDAO();
-        // AutoridadDeConstatacion autoridad = new AutoridadDeConstatacion(5, 3, "Juan", "Mendez", 322345354, "Femboy");
-        // AutoridadDeConstatacion au = autoridadDAO.buscarAutoridadPorDni(322345354);
-        /* ASI SE HACE LOS DAO DE INFRACCIONES */
-//// Crear DAOs
-//        TipoDeInfraccionDAO tipoDAO = new TipoDeInfraccionDAO();
-//        InfraccionDAO infraccionDAO = new InfraccionDAO();
-//
-//// Crear los tipos de infracción primero
-//        TipoDeInfraccion tipo1 = new TipoDeInfraccion(1, "Conducción bajo los efectos del alcohol", "Grave", 699.99, 0);
-//        TipoDeInfraccion tipo2 = new TipoDeInfraccion(2, "Atropello de peaton", "Leve", 500, 50);
-//
-//// Insertar los tipos solo si no existen
-//        if (!tipoDAO.existeTipoDeInfraccion(1)) {
-//            tipoDAO.crearTipoDeInfraccion(tipo1);
-//        }
-//        if (!tipoDAO.existeTipoDeInfraccion(2)) {
-//            tipoDAO.crearTipoDeInfraccion(tipo2);
-//        }
-//
-//// Ahora sí crear la infracción
-//        Infraccion infraccion = new Infraccion("Alcohol", 25000);
-//        infraccion.addInfraccionNomenclada(tipo1);
-//        infraccion.addInfraccionNomenclada(tipo2);
-//
-//        infraccionDAO.crearInfraccion(infraccion);
-
-
-
         VistaPrincipal vistaPrincipal = new VistaPrincipal();
         VistaPrincipalController controladorVistaPrincipal = new VistaPrincipalController(vistaPrincipal);
 

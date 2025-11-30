@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.persistencia;
+package com.mycompany.IntegradorMVC.controlador.jpa;
 
-import com.mycompany.IntegradorMVC.modelo.AutoridadDeConstatacion;
-import com.mycompany.IntegradorMVC.persistencia.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.modelo.Licencia;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,25 +17,20 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Tomadin
+ * @author tomad
  */
-public class AutoridadDeConstatacionJpaController implements Serializable {
+public class LicenciaJpaController extends AbstractJpaController<Licencia> {
 
-    public AutoridadDeConstatacionJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-    private EntityManagerFactory emf = null;
-
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
+    public LicenciaJpaController() {
+        super(Licencia.class);
     }
 
-    public void create(AutoridadDeConstatacion autoridadDeConstatacion) {
+    public void create(Licencia licencia) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(autoridadDeConstatacion);
+            em.persist(licencia);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +39,19 @@ public class AutoridadDeConstatacionJpaController implements Serializable {
         }
     }
 
-    public void edit(AutoridadDeConstatacion autoridadDeConstatacion) throws NonexistentEntityException, Exception {
+    public void edit(Licencia licencia) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            autoridadDeConstatacion = em.merge(autoridadDeConstatacion);
+            licencia = em.merge(licencia);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = autoridadDeConstatacion.getId();
-                if (findAutoridadDeConstatacion(id) == null) {
-                    throw new NonexistentEntityException("The autoridadDeConstatacion with id " + id + " no longer exists.");
+                int id = licencia.getIdLicencia();
+                if (findLicencia(id) == null) {
+                    throw new NonexistentEntityException("The licencia with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +67,14 @@ public class AutoridadDeConstatacionJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            AutoridadDeConstatacion autoridadDeConstatacion;
+            Licencia licencia;
             try {
-                autoridadDeConstatacion = em.getReference(AutoridadDeConstatacion.class, id);
-                autoridadDeConstatacion.getId();
+                licencia = em.getReference(Licencia.class, id);
+                licencia.getIdLicencia();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The autoridadDeConstatacion with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The licencia with id " + id + " no longer exists.", enfe);
             }
-            em.remove(autoridadDeConstatacion);
+            em.remove(licencia);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +83,19 @@ public class AutoridadDeConstatacionJpaController implements Serializable {
         }
     }
 
-    public List<AutoridadDeConstatacion> findAutoridadDeConstatacionEntities() {
-        return findAutoridadDeConstatacionEntities(true, -1, -1);
+    public List<Licencia> findLicenciaEntities() {
+        return findLicenciaEntities(true, -1, -1);
     }
 
-    public List<AutoridadDeConstatacion> findAutoridadDeConstatacionEntities(int maxResults, int firstResult) {
-        return findAutoridadDeConstatacionEntities(false, maxResults, firstResult);
+    public List<Licencia> findLicenciaEntities(int maxResults, int firstResult) {
+        return findLicenciaEntities(false, maxResults, firstResult);
     }
 
-    private List<AutoridadDeConstatacion> findAutoridadDeConstatacionEntities(boolean all, int maxResults, int firstResult) {
+    private List<Licencia> findLicenciaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(AutoridadDeConstatacion.class));
+            cq.select(cq.from(Licencia.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +107,20 @@ public class AutoridadDeConstatacionJpaController implements Serializable {
         }
     }
 
-    public AutoridadDeConstatacion findAutoridadDeConstatacion(int id) {
+    public Licencia findLicencia(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(AutoridadDeConstatacion.class, id);
+            return em.find(Licencia.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getAutoridadDeConstatacionCount() {
+    public int getLicenciaCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<AutoridadDeConstatacion> rt = cq.from(AutoridadDeConstatacion.class);
+            Root<Licencia> rt = cq.from(Licencia.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

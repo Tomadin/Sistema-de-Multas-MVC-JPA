@@ -1,6 +1,7 @@
 package com.mycompany.IntegradorMVC.modelo;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,7 @@ public class Ruta implements Serializable {
     private int id;
     private String nombreRuta;
     private String kmRuta;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "tipo_ruta_id")
     private TipoRuta tipoRuta;
 

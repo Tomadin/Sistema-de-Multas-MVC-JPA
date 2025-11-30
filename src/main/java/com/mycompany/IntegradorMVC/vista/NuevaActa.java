@@ -64,7 +64,7 @@ public class NuevaActa extends javax.swing.JFrame {
         generoTextField = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        idLicenciaTextField = new javax.swing.JTextField();
+        numeroLicenciaTextField = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         puntosTextField = new javax.swing.JTextField();
@@ -80,7 +80,6 @@ public class NuevaActa extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         organizacionJList = new javax.swing.JList();
         jLabel21 = new javax.swing.JLabel();
-        importeJComboBox = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         autoridadConstatacionJList = new javax.swing.JList();
@@ -191,11 +190,11 @@ public class NuevaActa extends javax.swing.JFrame {
         jLabel17.setText("Genero");
 
         jPanel5.setBackground(new java.awt.Color(61, 62, 77));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Conductor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(253, 251, 251))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Licencia\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(253, 251, 251))); // NOI18N
 
         jLabel18.setBackground(new java.awt.Color(255, 255, 255));
         jLabel18.setForeground(new java.awt.Color(253, 251, 251));
-        jLabel18.setText("id:");
+        jLabel18.setText("Numero:");
 
         jLabel19.setBackground(new java.awt.Color(255, 255, 255));
         jLabel19.setForeground(new java.awt.Color(253, 251, 251));
@@ -222,7 +221,7 @@ public class NuevaActa extends javax.swing.JFrame {
                             .addComponent(jLabel19)
                             .addGap(26, 26, 26)
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(idLicenciaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                .addComponent(numeroLicenciaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                                 .addComponent(fechaVTOJDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -231,7 +230,7 @@ public class NuevaActa extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idLicenciaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroLicenciaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -390,10 +389,8 @@ public class NuevaActa extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(253, 251, 251));
         jLabel21.setText("Tipo:");
 
-        importeJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "$1.000", "$5.000", "$10.000", "$500.000" }));
-
         jPanel6.setBackground(new java.awt.Color(61, 62, 77));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Conductor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(253, 251, 251))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Autoridad de Constatación", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(253, 251, 251))); // NOI18N
 
         autoridadConstatacionJList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "1. Pablo Saenz", "2. Ricardo Fort", "3. Paula Diaz", "4. Juan Mendez", "5. Ariel Martinez" };
@@ -519,9 +516,7 @@ public class NuevaActa extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(descripcionTextField)
-                                    .addComponent(importeJComboBox, 0, 177, Short.MAX_VALUE))))
+                                .addComponent(descripcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -551,9 +546,7 @@ public class NuevaActa extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(descripcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(importeJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -652,8 +645,6 @@ public class NuevaActa extends javax.swing.JFrame {
     public com.toedter.calendar.JDateChooser fechaVTOJDateChooser;
     public javax.swing.JTextField generoTextField;
     public javax.swing.JTextField horaTextField;
-    public javax.swing.JTextField idLicenciaTextField;
-    public javax.swing.JComboBox<String> importeJComboBox;
     public javax.swing.JList infraccionJList;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -697,6 +688,7 @@ public class NuevaActa extends javax.swing.JFrame {
     public javax.swing.JTextField marcaTextField;
     public javax.swing.JTextField modeloTextField;
     public javax.swing.JTextField nombreTextField;
+    public javax.swing.JTextField numeroLicenciaTextField;
     public javax.swing.JTextArea observacionesJTextArea;
     public javax.swing.JList organizacionJList;
     public javax.swing.JTextField puntosTextField;

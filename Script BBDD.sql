@@ -1,445 +1,228 @@
--- BORRAR y recrear la base de datos 
-DROP DATABASE IF EXISTS `integrador2-mvc`;
-CREATE SCHEMA IF NOT EXISTS `integrador2-mvc` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `integrador2-mvc`;
+-- Script de inserción de datos para prueba-mvc
 
--- -----------------------------------------------------
--- Tabla: modelo (padre de marca)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS modelo (
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- ==================================================
+-- TABLAS SIN DEPENDENCIAS (Se insertan primero)
+-- ==================================================
 
--- -----------------------------------------------------
--- Tabla: marca (referencia modelo)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS marca (
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(255) DEFAULT NULL,
-  modelo_id INT DEFAULT NULL,
-  PRIMARY KEY (id),
-  INDEX idx_marca_modelo_id (modelo_id),
-  CONSTRAINT marca_fk_modelo FOREIGN KEY (modelo_id) REFERENCES modelo(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 1. ORGANIZACION (Sin dependencias)
+INSERT INTO `organizacion` (`LOCALIDAD`, `NOMBREORGANIZACION`) VALUES
+('Lujan de Cuyo', 'Municipalidad Lujan de Cuyo'),
+('Mendoza', 'Policia Federal'),
+('Godoy Cruz', 'Policia Vial'),
+('Las Heras', 'Municipalidad Las Heras'),
+('Guaymallen', 'Policia Provincial'),
+('Maipu', 'Municipalidad Maipu'),
+('San Rafael', 'Policia Caminera'),
+('Tunuyan', 'Municipalidad Tunuyan'),
+('San Martin', 'Policia de Transito'),
+('Capital', 'Policia Municipal Capital');
 
--- -----------------------------------------------------
--- Tabla: vehiculo (referencia marca)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS vehiculo (
-  id INT NOT NULL AUTO_INCREMENT,
-  color VARCHAR(50) DEFAULT NULL,
-  dominio VARCHAR(20) DEFAULT NULL,
-  anio INT DEFAULT NULL,
-  marca_id INT DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE INDEX ux_vehiculo_dominio (dominio),
-  INDEX idx_vehiculo_marca_id (marca_id),
-  CONSTRAINT vehiculo_fk_marca FOREIGN KEY (marca_id) REFERENCES marca(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 2. TIPOSRUTAS (Sin dependencias)
+INSERT INTO `tiposrutas` (`DESCTIPORUTA`, `NOMBRETIPODERUTA`) VALUES
+('Rutas nacionales principales', 'Nacional'),
+('Rutas provinciales', 'Provincial'),
+('Calles urbanas', 'Urbana'),
+('Autopistas de alta velocidad', 'Autopista'),
+('Caminos rurales', 'Rural'),
+('Rutas interprovinciales', 'Interprovincial'),
+('Avenidas principales', 'Avenida'),
+('Calles de montaña', 'Montaña'),
+('Rutas turisticas', 'Turistica'),
+('Caminos vecinales', 'Vecinal');
 
--- -----------------------------------------------------
--- Tabla: organizacion
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS organizacion (
-  id INT NOT NULL AUTO_INCREMENT,
-  nombreOrganizacion VARCHAR(45) NOT NULL,
-  localidad VARCHAR(45) NOT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 3. RUTAS (Depende de TIPOSRUTAS)
+INSERT INTO `rutas` (`KMRUTA`, `NOMBRERUTA`, `tipo_ruta_id`) VALUES
+('730', 'Ruta Nacional 7', 1),
+('850', 'Ruta Provincial 82', 2),
+('15', 'Av. San Martin', 7),
+('1200', 'Autopista del Sol', 4),
+('45', 'Camino a Potrerillos', 5),
+('560', 'Ruta Provincial 15', 2),
+('28', 'Av. Acceso Este', 7),
+('320', 'Ruta Nacional 40', 1),
+('95', 'Camino El Challao', 8),
+('180', 'Ruta del Vino', 9);
 
--- -----------------------------------------------------
--- Tabla: estadodelacta
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS estadodelacta (
-  id INT NOT NULL AUTO_INCREMENT,
-  estado VARCHAR(100) DEFAULT NULL,
-  descripcion VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 4. MODELOS (Sin dependencias)
+INSERT INTO `modelos` (`MODELOAUTO`) VALUES
+('Fiesta'),
+('Corolla'),
+('Gol'),
+('Polo'),
+('Focus'),
+('Cruze'),
+('Cronos'),
+('Onix'),
+('Ranger'),
+('Hilux');
 
--- -----------------------------------------------------
--- Tabla: autoridad
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS autoridad (
-  dni INT NOT NULL,
-  nombre VARCHAR(45) NOT NULL,
-  apellido VARCHAR(45) NOT NULL,
-  genero VARCHAR(45) NOT NULL,
-  idPlaca INT NOT NULL,
-  idLegajo INT NOT NULL,
-  PRIMARY KEY (dni)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 5. MARCAS (Depende de MODELOS)
+INSERT INTO `marcas` (`MARCAAUTO`, `modelo_id`) VALUES
+('Ford', 1),
+('Toyota', 2),
+('Volkswagen', 3),
+('Volkswagen', 4),
+('Ford', 5),
+('Chevrolet', 6),
+('Fiat', 7),
+('Chevrolet', 8),
+('Ford', 9),
+('Toyota', 10);
 
--- -----------------------------------------------------
--- Tabla: conductor
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS conductor (
-  dni INT NOT NULL,
-  nombre VARCHAR(50) NOT NULL,
-  apellido VARCHAR(50) NOT NULL,
-  genero VARCHAR(20) DEFAULT NULL,
-  domicilio VARCHAR(100) DEFAULT NULL,
-  PRIMARY KEY (dni)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 6. VEHICULO (Depende de MARCAS)
+INSERT INTO `vehiculo` (`ANIOPATENTAMIENTO`, `COLOR`, `DOMINIO`, `marca_id`) VALUES
+(2020, 'Rojo', 'AA123BB', 1),
+(2019, 'Blanco', 'AB456CD', 2),
+(2021, 'Negro', 'AC789EF', 3),
+(2018, 'Gris', 'AD012GH', 4),
+(2022, 'Azul', 'AE345IJ', 5),
+(2017, 'Verde', 'AF678KL', 6),
+(2023, 'Plata', 'AG901MN', 7),
+(2020, 'Blanco', 'AH234OP', 8),
+(2019, 'Negro', 'AI567QR', 9),
+(2021, 'Rojo', 'AJ890ST', 10);
 
--- -----------------------------------------------------
--- Tabla: licencia (referencia conductor)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS licencia (
-  id INT NOT NULL AUTO_INCREMENT,
-  numero_licencia INT DEFAULT NULL,
-  fecha_vencimiento DATE DEFAULT NULL,
-  puntos INT DEFAULT NULL,
-  conductor_dni INT NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE INDEX ux_licencia_numero (numero_licencia),
-  INDEX idx_licencia_conductor_dni (conductor_dni),
-  CONSTRAINT licencia_fk_conductor FOREIGN KEY (conductor_dni) REFERENCES conductor(dni)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 7. PERSONA (Sin dependencias - Tabla base de herencia)
+INSERT INTO `persona` (`DNI`, `tipo`, `APELLIDO`, `GENERO`, `NOMBRE`, `IDLEGAJO`, `IDPLACA`, `DOMICILIO`) VALUES
+(41456732, 'AUTORIDAD', 'Diaz', 'mujer', 'Paula', 86523, 8765653, NULL),
+(42653476, 'AUTORIDAD', 'Smith', 'hombre', 'Brian', 734663, 876523, NULL),
+(44567634, 'AUTORIDAD', 'Suarez', 'hombre', 'Agustin', 876545, 987675, NULL),
+(38456789, 'AUTORIDAD', 'Rodriguez', 'mujer', 'Maria', 765432, 654321, NULL),
+(40123456, 'AUTORIDAD', 'Gonzalez', 'hombre', 'Carlos', 543210, 432109, NULL),
+(42653477, 'CONDUCTOR', 'Perez', 'hombre', 'Juan', NULL, NULL, 'San Martin 123'),
+(44567635, 'CONDUCTOR', 'Lopez', 'mujer', 'Ana', NULL, NULL, 'Belgrano 456'),
+(39876543, 'CONDUCTOR', 'Martinez', 'hombre', 'Pedro', NULL, NULL, 'Mitre 789'),
+(41234567, 'CONDUCTOR', 'Fernandez', 'mujer', 'Laura', NULL, NULL, 'Sarmiento 321'),
+(43567890, 'CONDUCTOR', 'Garcia', 'hombre', 'Diego', NULL, NULL, 'Rivadavia 654');
 
--- -----------------------------------------------------
--- Tabla: tiporuta
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS tiporuta (
-  id INT NOT NULL AUTO_INCREMENT,
-  estado VARCHAR(100) DEFAULT NULL,
-  tipo VARCHAR(100) DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 8. LICENCIA (Depende de PERSONA - conductor)
+INSERT INTO `licencia` (`fecha_vencimiento`, `NUMEROLICENCIA`, `puntos`, `conductor_dni`) VALUES
+('2026-12-31 00:00:00', 3232213, 86, 42653477),
+('2025-06-30 00:00:00', 1122334, 92, 44567635),
+('2027-03-15 00:00:00', 5566778, 78, 39876543),
+('2026-09-20 00:00:00', 9988776, 100, 41234567),
+('2025-11-10 00:00:00', 4455667, 65, 43567890),
+('2028-01-25 00:00:00', 7788990, 88, 42653477),
+('2026-05-18 00:00:00', 2233445, 95, 44567635),
+('2027-08-08 00:00:00', 6677889, 72, 39876543),
+('2025-12-12 00:00:00', 3344556, 80, 41234567),
+('2026-07-30 00:00:00', 8899001, 90, 43567890);
 
--- -----------------------------------------------------
--- Tabla: ruta (referencia tiporuta)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS ruta (
-  id INT NOT NULL AUTO_INCREMENT,
-  nombre VARCHAR(255) DEFAULT NULL,
-  kilometro VARCHAR(50) DEFAULT NULL,
-  tipo_ruta_id INT DEFAULT NULL,
-  PRIMARY KEY (id),
-  INDEX idx_ruta_tipo_ruta_id (tipo_ruta_id),
-  CONSTRAINT ruta_fk_tiporuta FOREIGN KEY (tipo_ruta_id) REFERENCES tiporuta(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 9. ESTADODELACTA (Sin dependencias)
+INSERT INTO `estadodelacta` (`descripcion`, `estado`) VALUES
+('Acta recien labrada, pendiente de revision', 'PENDIENTE'),
+('Acta verificada y aprobada', 'APROBADA'),
+('Acta con pago realizado', 'PAGADA'),
+('Acta en proceso de apelacion', 'EN_APELACION'),
+('Apelacion rechazada', 'APELACION_RECHAZADA'),
+('Apelacion aprobada, acta anulada', 'ANULADA'),
+('Acta vencida sin pago', 'VENCIDA'),
+('En proceso de cobro judicial', 'EN_COBRO_JUDICIAL'),
+('Acta con plan de pagos activo', 'PLAN_PAGOS'),
+('Acta prescripta por tiempo', 'PRESCRIPTA');
 
--- -----------------------------------------------------
--- Tabla: actadeconstatacion (referencia muchas tablas)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS actadeconstatacion (
-  id INT NOT NULL AUTO_INCREMENT,
-  fecha_constatacion DATE DEFAULT NULL,
-  fecha_vencimiento_acta DATE DEFAULT NULL,
-  hora_constatacion DATETIME DEFAULT NULL,
-  lugar VARCHAR(255) DEFAULT NULL,
-  observaciones TEXT DEFAULT NULL,
-  importe_total DOUBLE DEFAULT NULL,
-  organizacion_id INT DEFAULT NULL,
-  vehiculo_id INT DEFAULT NULL,
-  estado_acta_id INT DEFAULT NULL,
-  autoridad_id INT DEFAULT NULL,
-  licencia_id INT DEFAULT NULL,
-  ruta_id INT DEFAULT NULL,
-  PRIMARY KEY (id),
-  INDEX idx_acta_organizacion_id (organizacion_id),
-  INDEX idx_acta_vehiculo_id (vehiculo_id),
-  INDEX idx_acta_estado_acta_id (estado_acta_id),
-  INDEX idx_acta_autoridad_id (autoridad_id),
-  INDEX idx_acta_licencia_id (licencia_id),
-  INDEX idx_acta_ruta_id (ruta_id),
-  CONSTRAINT acta_fk_organizacion FOREIGN KEY (organizacion_id) REFERENCES organizacion(id),
-  CONSTRAINT acta_fk_vehiculo FOREIGN KEY (vehiculo_id) REFERENCES vehiculo(id),
-  CONSTRAINT acta_fk_estado FOREIGN KEY (estado_acta_id) REFERENCES estadodelacta(id),
-  CONSTRAINT acta_fk_autoridad FOREIGN KEY (autoridad_id) REFERENCES autoridad(dni),
-  CONSTRAINT acta_fk_licencia FOREIGN KEY (licencia_id) REFERENCES licencia(id),
-  CONSTRAINT acta_fk_ruta FOREIGN KEY (ruta_id) REFERENCES ruta(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 10. ACTAS (Depende de: PERSONA-autoridad, VEHICULO, ORGANIZACION, LICENCIA, RUTA, ESTADODELACTA)
+INSERT INTO `actas` (`FECHADELABRADO`, `FECHAVTOPAGOVOLUN`, `HORADELABRADO`, `LUGARDECONSTATACION`, `OBSERVACIONES`, `autoridad_id`, `estado_id`, `licencia_id`, `organizacion_id`, `ruta_id`, `vehiculo_id`) VALUES
+('2025-11-14 20:57:11', '2025-12-14 20:57:13', '2025-11-14 20:57:15.679', 'Km 730 Ruta 7', 'Exceso de velocidad detectado', 41456732, 1, 1, 1, 1, 1),
+('2025-11-22 21:15:36', '2025-12-22 21:15:37', '2025-11-22 21:15:40.739', 'Av. San Martin altura 1500', 'Estacionamiento indebido', 42653476, 2, 2, 2, 3, 2),
+('2025-11-21 14:38:45', '2025-12-21 14:38:48', '2025-11-21 14:38:50.498', 'Rotonda acceso este', 'No respeto prioridad de paso', 41456732, 3, 3, 3, 7, 3),
+('2025-11-28 14:46:52', '2025-12-28 14:46:53', '2025-11-28 14:46:56.143', 'Autopista del Sol Km 45', 'Conducir sin cinturon de seguridad', 42653476, 4, 4, 1, 4, 4),
+('2025-11-13 14:57:55', '2025-12-13 14:57:58', '2025-11-13 14:57:59.966', 'Camino a Potrerillos', 'Luz de freno quemada', 44567634, 5, 5, 2, 5, 5),
+('2025-11-05 10:20:00', '2025-12-05 10:20:00', '2025-11-05 10:20:30.123', 'Ruta Provincial 15 Km 200', 'Adelantamiento indebido', 38456789, 1, 6, 3, 6, 6),
+('2025-11-18 16:45:22', '2025-12-18 16:45:22', '2025-11-18 16:45:55.456', 'Av. Acceso Este y Godoy Cruz', 'Semaforo en rojo', 40123456, 2, 7, 4, 7, 7),
+('2025-11-25 08:30:10', '2025-12-25 08:30:10', '2025-11-25 08:30:45.789', 'Ruta 40 altura Tunuyan', 'Documentacion vencida', 41456732, 6, 8, 5, 8, 8),
+('2025-11-10 19:15:33', '2025-12-10 19:15:33', '2025-11-10 19:16:00.234', 'Camino El Challao', 'Conduccion temeraria', 42653476, 7, 9, 6, 9, 9),
+('2025-11-02 12:00:00', '2025-12-02 12:00:00', '2025-11-02 12:00:30.567', 'Ruta del Vino - Maipu', 'Control de alcoholemia positivo', 44567634, 8, 10, 7, 10, 10);
 
--- -----------------------------------------------------
--- Tabla: infraccion
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS infraccion (
-  id INT NOT NULL AUTO_INCREMENT,
-  descripcion VARCHAR(255) DEFAULT NULL,
-  importeInfraccion DOUBLE DEFAULT NULL,
-  PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 11. TIPODEINFRACCION (Sin dependencias)
+INSERT INTO `tipodeinfraccion` (`DESCRIPCIONINFRACCION`, `IMPORTEASIGNADOINFRACCION`, `PORCENTAJEDESCUENTO`, `TIPOGRAVEDAD`) VALUES
+('Exceso de velocidad hasta 20 km/h', 15000, 30, 'LEVE'),
+('Exceso de velocidad entre 20-40 km/h', 30000, 20, 'MODERADA'),
+('Exceso de velocidad mas de 40 km/h', 60000, 10, 'GRAVE'),
+('Estacionamiento prohibido', 8000, 40, 'LEVE'),
+('No respetar semaforo en rojo', 25000, 15, 'GRAVE'),
+('Conducir sin cinturon de seguridad', 12000, 25, 'MODERADA'),
+('Conducir usando celular', 18000, 20, 'MODERADA'),
+('Documentacion vehicular vencida', 20000, 30, 'MODERADA'),
+('No respetar prioridad de paso', 22000, 15, 'GRAVE'),
+('Conduccion bajo efectos de alcohol', 100000, 0, 'MUY_GRAVE');
 
--- -----------------------------------------------------
--- Tabla: tipodeinfraccion
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS tipodeinfraccion (
-  id_infrac INT NOT NULL AUTO_INCREMENT,
-  descripcionInfraccion VARCHAR(255) DEFAULT NULL,
-  tipoGravedad VARCHAR(50) DEFAULT NULL,
-  importeAsignadoInfraccion DOUBLE DEFAULT NULL,
-  porcentajeDescuento DOUBLE DEFAULT NULL,
-  PRIMARY KEY (id_infrac)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 12. INFRACCION (Depende de ACTAS)
+-- Primero obtenemos los IDs reales de las actas insertadas
+SET @acta1 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Km 730 Ruta 7' LIMIT 1);
+SET @acta2 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Av. San Martin altura 1500' LIMIT 1);
+SET @acta3 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Rotonda acceso este' LIMIT 1);
+SET @acta4 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Autopista del Sol Km 45' LIMIT 1);
+SET @acta5 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Camino a Potrerillos' LIMIT 1);
+SET @acta6 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Ruta Provincial 15 Km 200' LIMIT 1);
+SET @acta7 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Av. Acceso Este y Godoy Cruz' LIMIT 1);
+SET @acta8 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Ruta 40 altura Tunuyan' LIMIT 1);
+SET @acta9 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Camino El Challao' LIMIT 1);
+SET @acta10 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Ruta del Vino - Maipu' LIMIT 1);
 
--- -----------------------------------------------------
--- Tabla: infraccion_tipoinfraccion (N:N infraccion <-> tipodeinfraccion)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS infraccion_tipoinfraccion (
-  infraccion_id INT NOT NULL,
-  tipo_infraccion_id INT NOT NULL,
-  PRIMARY KEY (infraccion_id, tipo_infraccion_id),
-  INDEX idx_it_tipo_infraccion_id (tipo_infraccion_id),
-  CONSTRAINT it_fk_infraccion FOREIGN KEY (infraccion_id) REFERENCES infraccion(id) ON DELETE CASCADE,
-  CONSTRAINT it_fk_tipodeinfraccion FOREIGN KEY (tipo_infraccion_id) REFERENCES tipodeinfraccion(id_infrac) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `infraccion` (`DESCRIPCION`, `IMPORTEINFRACCION`, `acta_id`) VALUES
+('Circulaba a 140 km/h en zona de 120 km/h', 15000, @acta1),
+('Vehiculo estacionado en zona de carga y descarga', 8000, @acta2),
+('No respeto prioridad en rotonda causando riesgo', 22000, @acta3),
+('Conductor y acompañante sin cinturon', 12000, @acta4),
+('Luz de freno trasera derecha sin funcionar', 5000, @acta5),
+('Adelantamiento en curva con linea continua', 30000, @acta6),
+('Cruzo semaforo 3 segundos despues de rojo', 25000, @acta7),
+('Cedula verde vencida hace 4 meses', 20000, @acta8),
+('Maniobra zigzagueante entre vehiculos', 35000, @acta9),
+('Alcoholemia: 1.2 g/l (limite 0.5 g/l)', 100000, @acta10);
 
--- -----------------------------------------------------
--- Tabla: actadeconstatacion_infraccion (N:N acta <-> infraccion)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS actadeconstatacion_infraccion (
-  acta_id INT NOT NULL,
-  infraccion_id INT NOT NULL,
-  PRIMARY KEY (acta_id, infraccion_id),
-  INDEX idx_ac_infraccion_id (infraccion_id),
-  CONSTRAINT aci_fk_acta FOREIGN KEY (acta_id) REFERENCES actadeconstatacion(id) ON DELETE CASCADE,
-  CONSTRAINT aci_fk_infraccion FOREIGN KEY (infraccion_id) REFERENCES infraccion(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- 13. INFRACCION_TIPOINFRACCION (Depende de INFRACCION y TIPODEINFRACCION)
+-- Ahora obtenemos los IDs reales de las infracciones recién insertadas
+SET @infrac1 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Circulaba a 140 km/h%' LIMIT 1);
+SET @infrac2 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Vehiculo estacionado%' LIMIT 1);
+SET @infrac3 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'No respeto prioridad%' LIMIT 1);
+SET @infrac4 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Conductor y acompañante%' LIMIT 1);
+SET @infrac5 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Luz de freno%' LIMIT 1);
+SET @infrac6 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Adelantamiento en curva%' LIMIT 1);
+SET @infrac7 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Cruzo semaforo%' LIMIT 1);
+SET @infrac8 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Cedula verde vencida%' LIMIT 1);
+SET @infrac9 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Maniobra zigzagueante%' LIMIT 1);
+SET @infrac10 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Alcoholemia%' LIMIT 1);
 
--- -----------------------------------------------------
--- Tabla: persona (independiente)
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS persona (
-  dni INT NOT NULL,
-  nombre VARCHAR(100) NOT NULL,
-  apellido VARCHAR(100) NOT NULL,
-  genero VARCHAR(20) DEFAULT NULL,
-  PRIMARY KEY (dni)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `infraccion_tipoinfraccion` (`infraccion_id`, `tipo_infraccion_id`) VALUES
+(@infrac1, 1),   -- Exceso hasta 20 km/h
+(@infrac2, 4),   -- Estacionamiento prohibido
+(@infrac3, 9),   -- No respetar prioridad
+(@infrac4, 6),   -- Sin cinturon
+(@infrac5, 8),   -- Documentacion vencida
+(@infrac6, 2),   -- Exceso entre 20-40 km/h
+(@infrac7, 5),   -- Semaforo en rojo
+(@infrac8, 8),   -- Documentacion vencida
+(@infrac9, 2),   -- Exceso entre 20-40 km/h (conduccion temeraria)
+(@infrac10, 10); -- Conduccion bajo alcohol
 
+-- ==================================================
+-- VERIFICACION DE REGISTROS INSERTADOS
+-- ==================================================
 
-
-
--- Registros
-
-USE `integrador2-mvc`;
-
--- -----------------------------------------------------
--- Tabla: organizacion
--- -----------------------------------------------------
-INSERT INTO `organizacion` (id, nombreOrganizacion, localidad) VALUES
-(1,'Policia Mendoza','Mendoza'),
-(2,'Municipalidad Ciudad','Ciudad'),
-(3,'Transito Zona Este','Zona Este'),
-(4,'Policia Federal','Buenos Aires'),
-(5,'Gendarmeria Nacional','Cordoba'),
-(6,'Municipalidad Oeste','Zona Oeste'),
-(7,'Transito Sur','Sur'),
-(8,'Policia Seguridad Vial','Santa Fe'),
-(9,'Policia Metropolitana','CABA'),
-(10,'Municipalidad Norte','Norte');
-
--- -----------------------------------------------------
--- Tabla: modelo
--- -----------------------------------------------------
-INSERT INTO `modelo` (id, nombre) VALUES
-(1,'Zafiro 1000'),
-(2,'Titan XR'),
-(3,'Nova Compact'),
-(4,'EcoDrive 200'),
-(5,'Thunder Pro'),
-(6,'StreetRunner 150'),
-(7,'AeroSport 500'),
-(8,'TurboMax 3000'),
-(9,'RoadMaster 900'),
-(10,'UrbanLine 250');
-
--- -----------------------------------------------------
--- Tabla: marca
--- -----------------------------------------------------
-INSERT INTO `marca` (id, nombre, modelo_id) VALUES
-(1,'Honda',1),
-(2,'Yamaha',3),
-(3,'Suzuki',5),
-(4,'Zanella',2),
-(5,'Motomel',4),
-(6,'Bajaj',7),
-(7,'Gilera',6),
-(8,'KTM',8),
-(9,'Kawasaki',10),
-(10,'Benelli',9);
-
--- -----------------------------------------------------
--- Tabla: vehiculo
--- -----------------------------------------------------
-INSERT INTO `vehiculo` (id, color, dominio, anio, marca_id) VALUES
-(1,'Rojo','ABC123',2010,1),
-(2,'Azul','DEF456',2012,2),
-(3,'Negro','GHI789',2015,3),
-(4,'Blanco','JKL012',2018,4),
-(5,'Gris','MNO345',2011,5),
-(6,'Verde','PQR678',2016,6),
-(7,'Amarillo','STU901',2013,7),
-(8,'Azul','VWX234',2017,8),
-(9,'Negro','YZA567',2019,9),
-(10,'Rojo','BCD890',2020,10);
-
--- -----------------------------------------------------
--- Tabla: estadodelacta
--- -----------------------------------------------------
-INSERT INTO `estadodelacta` (id, estado, descripcion) VALUES
-(1,'Pendiente','Acta pendiente de revisar'),
-(2,'En Proceso','Acta en proceso de revisión'),
-(3,'Finalizado','Acta finalizada'),
-(4,'Archivado','Acta archivada'),
-(5,'Anulado','Acta anulada'),
-(6,'En Espera','Acta en espera de datos'),
-(7,'Rechazado','Acta rechazada'),
-(8,'Aprobado','Acta aprobada'),
-(9,'Observado','Acta observada'),
-(10,'Confirmado','Acta confirmada');
-
--- -----------------------------------------------------
--- Tabla: autoridad
--- -----------------------------------------------------
-INSERT INTO `autoridad` (dni, nombre, apellido, genero, idPlaca, idLegajo) VALUES
-(30123456,'Juan','Pérez','hombre',1200,5010),
-(28987654,'María','Gómez','mujer',1210,5011),
-(33444555,'Luis','Fernández','hombre',1220,5012),
-(32111222,'Ana','Romero','mujer',1230,5013),
-(29888777,'Jorge','Herrera','hombre',1240,5014),
-(31222999,'Sofía','Díaz','mujer',1250,5015),
-(27654321,'Pedro','Martínez','hombre',1260,5016),
-(30555999,'Laura','Sosa','mujer',1270,5017),
-(33123012,'Nicolás','Rivas','hombre',1280,5018),
-(29987123,'Carla','Molina','mujer',1290,5019);
-
--- -----------------------------------------------------
--- Tabla: conductor
--- -----------------------------------------------------
-INSERT INTO `conductor` (dni, nombre, apellido, genero, domicilio) VALUES
-(30123456, 'Juan', 'Perez', 'Masculino', 'Calle Falsa 123'),
-(28987654, 'Maria', 'Gomez', 'Femenino', 'Av. Libertador 456'),
-(33444555, 'Luis', 'Fernandez', 'Masculino', 'Calle 9 de Julio 789'),
-(32111222, 'Ana', 'Romero', 'Femenino', 'Av. San Martin 101'),
-(29888777, 'Jorge', 'Herrera', 'Masculino', 'Calle Mendoza 202'),
-(31222999, 'Sofía', 'Díaz', 'Femenino', 'Av. Belgrano 303'),
-(27654321, 'Pedro', 'Martínez', 'Masculino', 'Calle Cordoba 404'),
-(30555999, 'Laura', 'Sosa', 'Femenino', 'Av. Mitre 505'),
-(33123012, 'Nicolás', 'Rivas', 'Masculino', 'Calle Rivadavia 606'),
-(29987123, 'Carla', 'Molina', 'Femenino', 'Av. Libertad 707');
-
--- -----------------------------------------------------
--- Tabla: persona
--- -----------------------------------------------------
-INSERT INTO `persona` (dni, nombre, apellido, genero) VALUES
-(30123456,'Juan','Pérez','hombre'),
-(28987654,'María','Gómez','mujer'),
-(33444555,'Luis','Fernández','hombre'),
-(32111222,'Ana','Romero','mujer'),
-(29888777,'Jorge','Herrera','hombre'),
-(31222999,'Sofía','Díaz','mujer'),
-(27654321,'Pedro','Martínez','hombre'),
-(30555999,'Laura','Sosa','mujer'),
-(33123012,'Nicolás','Rivas','hombre'),
-(29987123,'Carla','Molina','mujer');
-
--- -----------------------------------------------------
--- Tabla: licencia
--- -----------------------------------------------------
-INSERT INTO `licencia` (id, numero_licencia, fecha_vencimiento, puntos, conductor_dni) VALUES
-(1,10001,'2026-12-31',20,30123456),
-(2,10002,'2025-11-30',18,28987654),
-(3,10003,'2027-01-15',25,33444555),
-(4,10004,'2026-05-10',22,32111222),
-(5,10005,'2025-09-20',19,29888777),
-(6,10006,'2026-08-05',21,31222999),
-(7,10007,'2027-03-30',24,27654321),
-(8,10008,'2025-12-01',20,30555999),
-(9,10009,'2026-10-10',23,33123012),
-(10,10010,'2027-07-15',25,29987123);
-
--- -----------------------------------------------------
--- Tabla: tiporuta
--- -----------------------------------------------------
-INSERT INTO `tiporuta` (id, estado, tipo) VALUES
-(1,'Activo','Urbana'),
-(2,'Activo','Rural'),
-(3,'En Mantenimiento','Autopista'),
-(4,'Activo','Carretera'),
-(5,'Cerrado','Urbana'),
-(6,'En Construccion','Rural'),
-(7,'Activo','Autopista'),
-(8,'Activo','Carretera'),
-(9,'En Mantenimiento','Ruta Provincial'),
-(10,'Activo','Ruta Nacional');
-
--- -----------------------------------------------------
--- Tabla: ruta
--- -----------------------------------------------------
-INSERT INTO `ruta` (id, nombre, kilometro, tipo_ruta_id) VALUES
-(1,'Ruta 40', 1200, 4),
-(2,'Ruta 7', 350, 2),
-(3,'Avenida Libertador', 15, 1),
-(4,'Autopista del Sol', 200, 3),
-(5,'Camino Real', 500, 6),
-(6,'Ruta Provincial 5', 150, 9),
-(7,'Ruta Nacional 9', 800, 10),
-(8,'Calle Principal', 10, 1),
-(9,'Ruta del Este', 600, 2),
-(10,'Carretera Central', 300, 4);
-
--- -----------------------------------------------------
--- Tabla: infraccion
--- -----------------------------------------------------
-INSERT INTO `infraccion` (id, descripcion, importeInfraccion) VALUES
-(1,'Exceso de velocidad',300),
-(2,'No usar cinturón',200),
-(3,'Documento vencido',150),
-(4,'Estacionamiento indebido',180),
-(5,'Conducir bajo efectos',500),
-(6,'Pasar semáforo en rojo',400),
-(7,'Falta de seguro obligatorio',350),
-(8,'Falta de luces',100),
-(9,'Exceso de carga',250),
-(10,'Obstruir vía pública',220);
-
--- -----------------------------------------------------
--- Tabla: tipodeinfraccion
--- -----------------------------------------------------
-INSERT INTO `tipodeinfraccion` (id_infrac, descripcionInfraccion, tipoGravedad, importeAsignadoInfraccion, porcentajeDescuento) VALUES
-(1,'Leve exceso de velocidad','Leve',150,10),
-(2,'Falta de cinturón de seguridad','Leve',100,5),
-(3,'Documento vencido','Media',200,15),
-(4,'Estacionamiento indebido','Leve',180,10),
-(5,'Conducir bajo efectos','Grave',500,0),
-(6,'Pasar semáforo en rojo','Grave',400,0),
-(7,'Falta de seguro obligatorio','Media',350,5),
-(8,'Falta de luces','Leve',100,10),
-(9,'Exceso de carga','Media',250,5),
-(10,'Obstruir vía pública','Leve',220,10);
-
--- -----------------------------------------------------
--- Tabla: actadeconstatacion
--- -----------------------------------------------------
-INSERT INTO `actadeconstatacion` (id, fecha_constatacion, fecha_vencimiento_acta, hora_constatacion, lugar, observaciones, importe_total, organizacion_id, vehiculo_id, estado_acta_id, autoridad_id, licencia_id, ruta_id) VALUES
-(1,'2025-11-01','2026-11-01','2025-11-01 09:00:00','Mendoza Centro','Sin observaciones',1500,1,1,1,30123456,1,1),
-(2,'2025-11-02','2026-11-02','2025-11-02 10:30:00','Ciudad Este','Leve exceso de velocidad',1600,2,2,2,28987654,2,2),
-(3,'2025-11-03','2026-11-03','2025-11-03 11:00:00','Zona Sur','Documento vencido',1700,3,3,3,33444555,3,3),
-(4,'2025-11-04','2026-11-04','2025-11-04 12:15:00','Barrio Norte','Falta de cinturón',1800,4,4,4,32111222,4,4),
-(5,'2025-11-05','2026-11-05','2025-11-05 13:30:00','Ciudad Oeste','Parada indebida',1900,5,5,5,29888777,5,5),
-(6,'2025-11-06','2026-11-06','2025-11-06 14:45:00','Zona Este','Exceso de carga',2000,6,6,6,31222999,6,6),
-(7,'2025-11-07','2026-11-07','2025-11-07 15:00:00','Centro Sur','Falta de seguro',2100,7,7,7,27654321,7,7),
-(8,'2025-11-08','2026-11-08','2025-11-08 16:30:00','Barrio Norte','Señalización incorrecta',2200,8,8,8,30555999,8,8),
-(9,'2025-11-09','2026-11-09','2025-11-09 17:00:00','Zona Oeste','Estacionamiento en lugar prohibido',2300,9,9,9,33123012,9,9),
-(10,'2025-11-10','2026-11-10','2025-11-10 18:15:00','Ciudad Centro','Exceso de velocidad',2400,10,10,10,29987123,10,10);
-
--- -----------------------------------------------------
--- Tabla: actadeconstatacion_infraccion
--- -----------------------------------------------------
-INSERT INTO `actadeconstatacion_infraccion` (acta_id, infraccion_id) VALUES
-(1,1),(1,2),(2,3),(2,4),(3,5),
-(3,6),(4,7),(4,8),(5,9),(5,10),
-(6,1),(6,3),(7,2),(7,5),(8,4),
-(8,6),(9,7),(9,8),(10,9),(10,10);
-
--- -----------------------------------------------------
--- Tabla: infraccion_tipoinfraccion
--- -----------------------------------------------------
-INSERT INTO `infraccion_tipoinfraccion` (infraccion_id, tipo_infraccion_id) VALUES
-(1,1),(2,2),(3,3),(4,4),(5,5),
-(6,6),(7,7),(8,8),(9,9),(10,10);
+SELECT 'organizacion' as tabla, COUNT(*) as registros FROM organizacion
+UNION ALL
+SELECT 'tiposrutas', COUNT(*) FROM tiposrutas
+UNION ALL
+SELECT 'rutas', COUNT(*) FROM rutas
+UNION ALL
+SELECT 'modelos', COUNT(*) FROM modelos
+UNION ALL
+SELECT 'marcas', COUNT(*) FROM marcas
+UNION ALL
+SELECT 'vehiculo', COUNT(*) FROM vehiculo
+UNION ALL
+SELECT 'persona', COUNT(*) FROM persona
+UNION ALL
+SELECT 'licencia', COUNT(*) FROM licencia
+UNION ALL
+SELECT 'estadodelacta', COUNT(*) FROM estadodelacta
+UNION ALL
+SELECT 'actas', COUNT(*) FROM actas
+UNION ALL
+SELECT 'tipodeinfraccion', COUNT(*) FROM tipodeinfraccion
+UNION ALL
+SELECT 'infraccion', COUNT(*) FROM infraccion
+UNION ALL
+SELECT 'infraccion_tipoinfraccion', COUNT(*) FROM infraccion_tipoinfraccion;

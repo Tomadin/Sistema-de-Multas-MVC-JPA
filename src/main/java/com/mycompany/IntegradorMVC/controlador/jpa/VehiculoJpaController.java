@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.persistencia;
+package com.mycompany.IntegradorMVC.controlador.jpa;
 
-import com.mycompany.IntegradorMVC.modelo.Modelo;
-import com.mycompany.IntegradorMVC.persistencia.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.modelo.Vehiculo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,11 +17,11 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Tomadin
+ * @author tomad
  */
-public class ModeloJpaController implements Serializable {
+public class VehiculoJpaController implements Serializable {
 
-    public ModeloJpaController(EntityManagerFactory emf) {
+    public VehiculoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,12 +30,12 @@ public class ModeloJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Modelo modelo) {
+    public void create(Vehiculo vehiculo) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(modelo);
+            em.persist(vehiculo);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +44,19 @@ public class ModeloJpaController implements Serializable {
         }
     }
 
-    public void edit(Modelo modelo) throws NonexistentEntityException, Exception {
+    public void edit(Vehiculo vehiculo) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            modelo = em.merge(modelo);
+            vehiculo = em.merge(vehiculo);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = modelo.getId();
-                if (findModelo(id) == null) {
-                    throw new NonexistentEntityException("The modelo with id " + id + " no longer exists.");
+                int id = vehiculo.getId();
+                if (findVehiculo(id) == null) {
+                    throw new NonexistentEntityException("The vehiculo with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +72,14 @@ public class ModeloJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Modelo modelo;
+            Vehiculo vehiculo;
             try {
-                modelo = em.getReference(Modelo.class, id);
-                modelo.getId();
+                vehiculo = em.getReference(Vehiculo.class, id);
+                vehiculo.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The modelo with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The vehiculo with id " + id + " no longer exists.", enfe);
             }
-            em.remove(modelo);
+            em.remove(vehiculo);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +88,19 @@ public class ModeloJpaController implements Serializable {
         }
     }
 
-    public List<Modelo> findModeloEntities() {
-        return findModeloEntities(true, -1, -1);
+    public List<Vehiculo> findVehiculoEntities() {
+        return findVehiculoEntities(true, -1, -1);
     }
 
-    public List<Modelo> findModeloEntities(int maxResults, int firstResult) {
-        return findModeloEntities(false, maxResults, firstResult);
+    public List<Vehiculo> findVehiculoEntities(int maxResults, int firstResult) {
+        return findVehiculoEntities(false, maxResults, firstResult);
     }
 
-    private List<Modelo> findModeloEntities(boolean all, int maxResults, int firstResult) {
+    private List<Vehiculo> findVehiculoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Modelo.class));
+            cq.select(cq.from(Vehiculo.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +112,20 @@ public class ModeloJpaController implements Serializable {
         }
     }
 
-    public Modelo findModelo(int id) {
+    public Vehiculo findVehiculo(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Modelo.class, id);
+            return em.find(Vehiculo.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getModeloCount() {
+    public int getVehiculoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Modelo> rt = cq.from(Modelo.class);
+            Root<Vehiculo> rt = cq.from(Vehiculo.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

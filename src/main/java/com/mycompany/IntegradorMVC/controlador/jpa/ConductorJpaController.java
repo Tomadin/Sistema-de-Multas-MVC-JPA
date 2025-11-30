@@ -2,14 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.persistencia;
+package com.mycompany.IntegradorMVC.controlador.jpa;
 
-import com.mycompany.IntegradorMVC.modelo.Licencia;
-import com.mycompany.IntegradorMVC.persistencia.exceptions.NonexistentEntityException;
-import java.io.Serializable;
+import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.modelo.Conductor;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,25 +15,24 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Tomadin
+ * @author tomad
  */
-public class LicenciaJpaController implements Serializable {
+public class ConductorJpaController extends AbstractJpaController<Conductor> {
 
-    public LicenciaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
+    
+    
+    public ConductorJpaController() {
+        super(Conductor.class);
     }
-    private EntityManagerFactory emf = null;
+    
 
-    public EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
 
-    public void create(Licencia licencia) {
+    public void create(Conductor conductor) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(licencia);
+            em.persist(conductor);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +41,19 @@ public class LicenciaJpaController implements Serializable {
         }
     }
 
-    public void edit(Licencia licencia) throws NonexistentEntityException, Exception {
+    public void edit(Conductor conductor) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            licencia = em.merge(licencia);
+            conductor = em.merge(conductor);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = licencia.getIdLicencia();
-                if (findLicencia(id) == null) {
-                    throw new NonexistentEntityException("The licencia with id " + id + " no longer exists.");
+                int dni = conductor.getDni();
+                if (findConductor(dni) == null) {
+                    throw new NonexistentEntityException("The conductor with dni " + dni + " no longer exists.");
                 }
             }
             throw ex;
@@ -67,19 +64,19 @@ public class LicenciaJpaController implements Serializable {
         }
     }
 
-    public void destroy(int id) throws NonexistentEntityException {
+    public void destroy(int dni) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Licencia licencia;
+            Conductor conductor;
             try {
-                licencia = em.getReference(Licencia.class, id);
-                licencia.getIdLicencia();
+                conductor = em.getReference(Conductor.class, dni);
+                conductor.getDni();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The licencia with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The conductor with dni " + dni + " no longer exists.", enfe);
             }
-            em.remove(licencia);
+            em.remove(conductor);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +85,19 @@ public class LicenciaJpaController implements Serializable {
         }
     }
 
-    public List<Licencia> findLicenciaEntities() {
-        return findLicenciaEntities(true, -1, -1);
+    public List<Conductor> findConductorEntities() {
+        return findConductorEntities(true, -1, -1);
     }
 
-    public List<Licencia> findLicenciaEntities(int maxResults, int firstResult) {
-        return findLicenciaEntities(false, maxResults, firstResult);
+    public List<Conductor> findConductorEntities(int maxResults, int firstResult) {
+        return findConductorEntities(false, maxResults, firstResult);
     }
 
-    private List<Licencia> findLicenciaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Conductor> findConductorEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Licencia.class));
+            cq.select(cq.from(Conductor.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +109,20 @@ public class LicenciaJpaController implements Serializable {
         }
     }
 
-    public Licencia findLicencia(int id) {
+    public Conductor findConductor(int dni) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Licencia.class, id);
+            return em.find(Conductor.class, dni);
         } finally {
             em.close();
         }
     }
 
-    public int getLicenciaCount() {
+    public int getConductorCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Licencia> rt = cq.from(Licencia.class);
+            Root<Conductor> rt = cq.from(Conductor.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

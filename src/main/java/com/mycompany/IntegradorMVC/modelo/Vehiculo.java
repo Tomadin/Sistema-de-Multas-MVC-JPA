@@ -1,6 +1,7 @@
 package com.mycompany.IntegradorMVC.modelo;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "vehiculos")
+@Table(name = "vehiculo")
 public class Vehiculo implements Serializable {
 
     @Id
@@ -19,7 +20,7 @@ public class Vehiculo implements Serializable {
     private String color;
     private String dominio;
     private int anioPatentamiento;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "marca_id")
     private Marca marca;
 

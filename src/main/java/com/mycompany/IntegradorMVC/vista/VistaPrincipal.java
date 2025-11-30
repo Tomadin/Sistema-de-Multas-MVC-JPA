@@ -4,7 +4,7 @@
  */
 package com.mycompany.IntegradorMVC.vista;
 
-import com.mycompany.IntegradorMVC.controlador.VistaPrincipalController;
+import com.mycompany.IntegradorMVC.controlador.vistas.VistaPrincipalController;
 
 /**
  *

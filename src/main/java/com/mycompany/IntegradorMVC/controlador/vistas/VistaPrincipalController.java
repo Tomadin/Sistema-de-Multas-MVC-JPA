@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.controlador;
+package com.mycompany.IntegradorMVC.controlador.vistas;
 
 import com.mycompany.IntegradorMVC.vista.ListaActas;
 import com.mycompany.IntegradorMVC.vista.ListaAutoridades;

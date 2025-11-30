@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.IntegradorMVC.persistencia;
+package com.mycompany.IntegradorMVC.controlador.jpa;
 
-import com.mycompany.IntegradorMVC.modelo.EstadoDelActa;
-import com.mycompany.IntegradorMVC.persistencia.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
+import com.mycompany.IntegradorMVC.modelo.Modelo;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,11 +17,11 @@ import javax.persistence.criteria.Root;
 
 /**
  *
- * @author Tomadin
+ * @author tomad
  */
-public class EstadoDelActaJpaController implements Serializable {
+public class ModeloJpaController implements Serializable {
 
-    public EstadoDelActaJpaController(EntityManagerFactory emf) {
+    public ModeloJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
@@ -30,12 +30,12 @@ public class EstadoDelActaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(EstadoDelActa estadoDelActa) {
+    public void create(Modelo modelo) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(estadoDelActa);
+            em.persist(modelo);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -44,19 +44,19 @@ public class EstadoDelActaJpaController implements Serializable {
         }
     }
 
-    public void edit(EstadoDelActa estadoDelActa) throws NonexistentEntityException, Exception {
+    public void edit(Modelo modelo) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            estadoDelActa = em.merge(estadoDelActa);
+            modelo = em.merge(modelo);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = estadoDelActa.getId();
-                if (findEstadoDelActa(id) == null) {
-                    throw new NonexistentEntityException("The estadoDelActa with id " + id + " no longer exists.");
+                int id = modelo.getId();
+                if (findModelo(id) == null) {
+                    throw new NonexistentEntityException("The modelo with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -72,14 +72,14 @@ public class EstadoDelActaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            EstadoDelActa estadoDelActa;
+            Modelo modelo;
             try {
-                estadoDelActa = em.getReference(EstadoDelActa.class, id);
-                estadoDelActa.getId();
+                modelo = em.getReference(Modelo.class, id);
+                modelo.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The estadoDelActa with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The modelo with id " + id + " no longer exists.", enfe);
             }
-            em.remove(estadoDelActa);
+            em.remove(modelo);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -88,19 +88,19 @@ public class EstadoDelActaJpaController implements Serializable {
         }
     }
 
-    public List<EstadoDelActa> findEstadoDelActaEntities() {
-        return findEstadoDelActaEntities(true, -1, -1);
+    public List<Modelo> findModeloEntities() {
+        return findModeloEntities(true, -1, -1);
     }
 
-    public List<EstadoDelActa> findEstadoDelActaEntities(int maxResults, int firstResult) {
-        return findEstadoDelActaEntities(false, maxResults, firstResult);
+    public List<Modelo> findModeloEntities(int maxResults, int firstResult) {
+        return findModeloEntities(false, maxResults, firstResult);
     }
 
-    private List<EstadoDelActa> findEstadoDelActaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Modelo> findModeloEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(EstadoDelActa.class));
+            cq.select(cq.from(Modelo.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -112,20 +112,20 @@ public class EstadoDelActaJpaController implements Serializable {
         }
     }
 
-    public EstadoDelActa findEstadoDelActa(int id) {
+    public Modelo findModelo(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(EstadoDelActa.class, id);
+            return em.find(Modelo.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getEstadoDelActaCount() {
+    public int getModeloCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<EstadoDelActa> rt = cq.from(EstadoDelActa.class);
+            Root<Modelo> rt = cq.from(Modelo.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

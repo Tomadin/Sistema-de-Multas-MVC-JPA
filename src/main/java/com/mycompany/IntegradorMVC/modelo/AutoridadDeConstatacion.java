@@ -4,6 +4,8 @@ package com.mycompany.IntegradorMVC.modelo;
 import java.io.Serializable;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -11,8 +13,6 @@ import javax.persistence.Id;
 public class AutoridadDeConstatacion extends Persona implements Serializable {
     private int idPlaca;
     private int idLegajo;
-    @Id
-    private Long id;
 
     public AutoridadDeConstatacion() {
     }
@@ -44,12 +44,5 @@ public class AutoridadDeConstatacion extends Persona implements Serializable {
     public String toString() {
         return nombre + " - " + apellido;
     }
-
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
     
 }
