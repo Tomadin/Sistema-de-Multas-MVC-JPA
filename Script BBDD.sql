@@ -1,4 +1,5 @@
 -- Script de inserción de datos para prueba-mvc
+-- Orden correcto según dependencias de claves foráneas
 
 -- ==================================================
 -- TABLAS SIN DEPENDENCIAS (Se insertan primero)
@@ -148,54 +149,31 @@ INSERT INTO `tipodeinfraccion` (`DESCRIPCIONINFRACCION`, `IMPORTEASIGNADOINFRACC
 ('Conduccion bajo efectos de alcohol', 100000, 0, 'MUY_GRAVE');
 
 -- 12. INFRACCION (Depende de ACTAS)
--- Primero obtenemos los IDs reales de las actas insertadas
-SET @acta1 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Km 730 Ruta 7' LIMIT 1);
-SET @acta2 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Av. San Martin altura 1500' LIMIT 1);
-SET @acta3 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Rotonda acceso este' LIMIT 1);
-SET @acta4 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Autopista del Sol Km 45' LIMIT 1);
-SET @acta5 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Camino a Potrerillos' LIMIT 1);
-SET @acta6 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Ruta Provincial 15 Km 200' LIMIT 1);
-SET @acta7 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Av. Acceso Este y Godoy Cruz' LIMIT 1);
-SET @acta8 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Ruta 40 altura Tunuyan' LIMIT 1);
-SET @acta9 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Camino El Challao' LIMIT 1);
-SET @acta10 = (SELECT IDACTA FROM actas WHERE LUGARDECONSTATACION = 'Ruta del Vino - Maipu' LIMIT 1);
-
 INSERT INTO `infraccion` (`DESCRIPCION`, `IMPORTEINFRACCION`, `acta_id`) VALUES
-('Circulaba a 140 km/h en zona de 120 km/h', 15000, @acta1),
-('Vehiculo estacionado en zona de carga y descarga', 8000, @acta2),
-('No respeto prioridad en rotonda causando riesgo', 22000, @acta3),
-('Conductor y acompañante sin cinturon', 12000, @acta4),
-('Luz de freno trasera derecha sin funcionar', 5000, @acta5),
-('Adelantamiento en curva con linea continua', 30000, @acta6),
-('Cruzo semaforo 3 segundos despues de rojo', 25000, @acta7),
-('Cedula verde vencida hace 4 meses', 20000, @acta8),
-('Maniobra zigzagueante entre vehiculos', 35000, @acta9),
-('Alcoholemia: 1.2 g/l (limite 0.5 g/l)', 100000, @acta10);
+('Circulaba a 140 km/h en zona de 120 km/h', 15000, 1),
+('Vehiculo estacionado en zona de carga y descarga', 8000, 2),
+('No respeto prioridad en rotonda causando riesgo', 22000, 3),
+('Conductor y acompañante sin cinturon', 12000, 4),
+('Luz de freno trasera derecha sin funcionar', 5000, 5),
+('Adelantamiento en curva con linea continua', 30000, 6),
+('Cruzo semaforo 3 segundos despues de rojo', 25000, 7),
+('Cedula verde vencida hace 4 meses', 20000, 8),
+('Maniobra zigzagueante entre vehiculos', 35000, 9),
+('Alcoholemia: 1.2 g/l (limite 0.5 g/l)', 100000, 10);
 
 -- 13. INFRACCION_TIPOINFRACCION (Depende de INFRACCION y TIPODEINFRACCION)
--- Ahora obtenemos los IDs reales de las infracciones recién insertadas
-SET @infrac1 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Circulaba a 140 km/h%' LIMIT 1);
-SET @infrac2 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Vehiculo estacionado%' LIMIT 1);
-SET @infrac3 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'No respeto prioridad%' LIMIT 1);
-SET @infrac4 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Conductor y acompañante%' LIMIT 1);
-SET @infrac5 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Luz de freno%' LIMIT 1);
-SET @infrac6 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Adelantamiento en curva%' LIMIT 1);
-SET @infrac7 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Cruzo semaforo%' LIMIT 1);
-SET @infrac8 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Cedula verde vencida%' LIMIT 1);
-SET @infrac9 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Maniobra zigzagueante%' LIMIT 1);
-SET @infrac10 = (SELECT id FROM infraccion WHERE DESCRIPCION LIKE 'Alcoholemia%' LIMIT 1);
-
+-- Relaciona cada infraccion con su tipo correspondiente
 INSERT INTO `infraccion_tipoinfraccion` (`infraccion_id`, `tipo_infraccion_id`) VALUES
-(@infrac1, 1),   -- Exceso hasta 20 km/h
-(@infrac2, 4),   -- Estacionamiento prohibido
-(@infrac3, 9),   -- No respetar prioridad
-(@infrac4, 6),   -- Sin cinturon
-(@infrac5, 8),   -- Documentacion vencida
-(@infrac6, 2),   -- Exceso entre 20-40 km/h
-(@infrac7, 5),   -- Semaforo en rojo
-(@infrac8, 8),   -- Documentacion vencida
-(@infrac9, 2),   -- Exceso entre 20-40 km/h (conduccion temeraria)
-(@infrac10, 10); -- Conduccion bajo alcohol
+(1, 1),  -- Exceso hasta 20 km/h
+(2, 4),  -- Estacionamiento prohibido
+(3, 9),  -- No respetar prioridad
+(4, 6),  -- Sin cinturon
+(5, 8),  -- Documentacion vencida
+(6, 2),  -- Exceso entre 20-40 km/h
+(7, 5),  -- Semaforo en rojo
+(8, 8),  -- Documentacion vencida
+(9, 2),  -- Exceso entre 20-40 km/h (conduccion temeraria)
+(10, 10); -- Conduccion bajo alcohol
 
 -- ==================================================
 -- VERIFICACION DE REGISTROS INSERTADOS
@@ -226,3 +204,4 @@ UNION ALL
 SELECT 'infraccion', COUNT(*) FROM infraccion
 UNION ALL
 SELECT 'infraccion_tipoinfraccion', COUNT(*) FROM infraccion_tipoinfraccion;
+

@@ -2,6 +2,7 @@ package com.mycompany.IntegradorMVC.controlador.vistas;
 
 import com.mycompany.IntegradorMVC.controlador.jpa.AutoridadDeConstatacionJpaController;
 import com.mycompany.IntegradorMVC.modelo.AutoridadDeConstatacion;
+import com.mycompany.IntegradorMVC.modelo.ControladoraLogica;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import com.mycompany.IntegradorMVC.vista.ListaAutoridades;
@@ -11,12 +12,12 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class ListaAutoridadesController implements ActionListener {
-    private AutoridadDeConstatacionJpaController autoridadJpaController;
-    private ListaAutoridades listaAutoridades;
+    private final ControladoraLogica controladoraLogica;
+    private final ListaAutoridades listaAutoridades;
     //private final AutoridadDAO autoridadDAO;
 
     public ListaAutoridadesController(ListaAutoridades listaAutoridades) {
-        this.autoridadJpaController = new AutoridadDeConstatacionJpaController();
+        this.controladoraLogica = new ControladoraLogica();
         this.listaAutoridades = listaAutoridades;
         this.listaAutoridades.setVisible(true);
         listaAutoridades.backBtn.addActionListener(this);
@@ -39,7 +40,7 @@ public class ListaAutoridadesController implements ActionListener {
         DefaultTableModel modelo = (DefaultTableModel) listaAutoridades.listaAutoridades.getModel();
         modelo.setRowCount(0); // Limpia la tabla
 
-        List<AutoridadDeConstatacion> autoridades = autoridadJpaController.findAll();
+        List<AutoridadDeConstatacion> autoridades = controladoraLogica.obtenerTodasLasAutoridades();
 
         for (AutoridadDeConstatacion a : autoridades) {
 

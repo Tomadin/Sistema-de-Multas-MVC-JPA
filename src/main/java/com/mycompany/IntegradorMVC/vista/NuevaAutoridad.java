@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.IntegradorMVC.vista;
 
-/**
- *
- * @author tomad
- */
+
 public class NuevaAutoridad extends javax.swing.JFrame {
 
-    /**
-     * Creates new form formulario
-     */
+
     public NuevaAutoridad() {
         initComponents();
     }
@@ -74,11 +66,6 @@ public class NuevaAutoridad extends javax.swing.JFrame {
         jLabel7.setText("Legajo N°:");
 
         generoJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Hombre", "Mujer" }));
-        generoJComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                generoJComboBoxActionPerformed(evt);
-            }
-        });
 
         crearAutoridadBtn.setBackground(new java.awt.Color(60, 208, 51));
         crearAutoridadBtn.setText("Crear");
@@ -182,10 +169,6 @@ public class NuevaAutoridad extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void generoJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generoJComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_generoJComboBoxActionPerformed
 
     /**
      * @param args the command line arguments

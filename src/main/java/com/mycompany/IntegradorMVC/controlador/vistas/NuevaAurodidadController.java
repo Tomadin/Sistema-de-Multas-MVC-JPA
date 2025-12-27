@@ -12,9 +12,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class NuevaAurodidadController implements ActionListener {
-//   private final NuevaAutoridad nuevaAutoridad;
-//   private final AutoridadDAO autoridadDAO;
-
     private final NuevaAutoridad nuevaAutoridad;
     private final AutoridadDeConstatacionJpaController autoridadJpaController;
 
@@ -87,7 +84,5 @@ public class NuevaAurodidadController implements ActionListener {
         } catch (SQLException ex) {
             Logger.getLogger(NuevaAurodidadController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
 }

@@ -1,20 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.IntegradorMVC.vista;
 
-import com.mycompany.IntegradorMVC.controlador.vistas.VistaPrincipalController;
 
-/**
- *
- * @author tomad
- */
 public class VistaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form main
-     */
+
     public VistaPrincipal() {
         initComponents();
         
@@ -54,7 +44,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Bodoni MT", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Modelo: DAO");
+        jLabel2.setText("Modelo: JPA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -95,26 +85,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jMenuActas.setBackground(new java.awt.Color(123, 123, 123));
         jMenuActas.setText("Actas");
-        jMenuActas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuActasActionPerformed(evt);
-            }
-        });
 
         gestionActaJMenuItem.setText("Gestión de Actas");
-        gestionActaJMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                gestionActaJMenuItemActionPerformed(evt);
-            }
-        });
         jMenuActas.add(gestionActaJMenuItem);
 
         nuevaActaJMenuItem.setText("Nueva Acta");
-        nuevaActaJMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevaActaJMenuItemActionPerformed(evt);
-            }
-        });
         jMenuActas.add(nuevaActaJMenuItem);
 
         jMenuBar1.add(jMenuActas);
@@ -123,11 +98,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Autoridades");
 
         verAutoridadesJMenuItem.setText("Ver Autoridades");
-        verAutoridadesJMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                verAutoridadesJMenuItemActionPerformed(evt);
-            }
-        });
         jMenu2.add(verAutoridadesJMenuItem);
 
         nuevaAutoridadJMenuItem.setText("Nueva Autoridad");
@@ -150,22 +120,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void gestionActaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionActaJMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gestionActaJMenuItemActionPerformed
-
-    private void nuevaActaJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaActaJMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuevaActaJMenuItemActionPerformed
-
-    private void verAutoridadesJMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verAutoridadesJMenuItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_verAutoridadesJMenuItemActionPerformed
-
-    private void jMenuActasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuActasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuActasActionPerformed
 
     /**
      * @param args the command line arguments

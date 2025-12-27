@@ -1,7 +1,5 @@
 package com.mycompany.IntegradorMVC.controlador.jpa;
 
-
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +18,7 @@ public abstract class AbstractJpaController<T> {
     static {
         try {
             emf = Persistence.createEntityManagerFactory("pruebaJPAPU");
-            //logger.log(Level.INFO, "EntityManagerFactory inicializado correctamente");
         } catch (Exception ex) {
-            //logger.log(Level.SEVERE, "Error inicializando EntityManagerFactory", ex);
             throw new ExceptionInInitializerError(ex);
         }
     }

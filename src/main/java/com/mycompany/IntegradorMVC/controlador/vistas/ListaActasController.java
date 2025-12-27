@@ -1,7 +1,7 @@
 package com.mycompany.IntegradorMVC.controlador.vistas;
 
-import com.mycompany.IntegradorMVC.controlador.jpa.ActaDeConstatacionJpaController;
 import com.mycompany.IntegradorMVC.modelo.ActaDeConstatacion;
+import com.mycompany.IntegradorMVC.modelo.ControladoraLogica;
 import com.mycompany.IntegradorMVC.vista.ListaActas;
 import com.mycompany.IntegradorMVC.vista.VistaPrincipal;
 import java.awt.event.ActionEvent;
@@ -14,13 +14,12 @@ import javax.swing.table.DefaultTableModel;
 public class ListaActasController implements ActionListener {
 
     public ListaActas listaActas;
-    public final ActaDeConstatacionJpaController actaJpaController;
-    //public final ActaDeConstatacionDAO actaDAO;
+    private final ControladoraLogica controladoraLogica;
 
     public ListaActasController(ListaActas vista) throws SQLException {
         this.listaActas = vista;
         this.listaActas.setVisible(true);
-        this.actaJpaController = new ActaDeConstatacionJpaController();
+        this.controladoraLogica = new ControladoraLogica();
         llenarTabla();
         listaActas.backBtn.addActionListener(this);
 
@@ -41,7 +40,7 @@ public class ListaActasController implements ActionListener {
         DefaultTableModel modelo = (DefaultTableModel) listaActas.actasJTable.getModel();
         modelo.setRowCount(0);
 
-        List<ActaDeConstatacion> actas = actaJpaController.findAll();
+        List<ActaDeConstatacion> actas = controladoraLogica.obtenerTodasLasActas();
         System.out.println("Total de actas encontradas: " + actas.size());
 
         // Formateadores de fecha y hora

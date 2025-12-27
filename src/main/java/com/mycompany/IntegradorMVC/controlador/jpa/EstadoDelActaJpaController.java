@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.IntegradorMVC.controlador.jpa;
 
 import com.mycompany.IntegradorMVC.controlador.jpa.exceptions.NonexistentEntityException;
@@ -15,10 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author tomad
- */
+
 public class EstadoDelActaJpaController implements Serializable {
 
     public EstadoDelActaJpaController(EntityManagerFactory emf) {

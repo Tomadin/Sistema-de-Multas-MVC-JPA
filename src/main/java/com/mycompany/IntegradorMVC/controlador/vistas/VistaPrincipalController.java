@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.IntegradorMVC.controlador.vistas;
 
 import com.mycompany.IntegradorMVC.vista.ListaActas;
@@ -15,10 +12,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author tomad
- */
 public class VistaPrincipalController implements ActionListener {
 
     public VistaPrincipal vista;
@@ -31,7 +24,6 @@ public class VistaPrincipalController implements ActionListener {
         vista.nuevaActaJMenuItem.addActionListener(this);
         vista.verAutoridadesJMenuItem.addActionListener(this);
         vista.nuevaAutoridadJMenuItem.addActionListener(this);
-        
     }
 
     @Override
@@ -65,14 +57,5 @@ public class VistaPrincipalController implements ActionListener {
             NuevaAutoridad nuevaAutoridad = new NuevaAutoridad();
             NuevaAurodidadController nuevaAutoridadCotroller = new NuevaAurodidadController(nuevaAutoridad);
         }
-
-//        //else if(o.equals(vista.verAutoridadesJMenuItem)){
-//            new ListaAutoridadesController(this);
-//            vista.setVisible(false);
-//        } else if(o.equals(vista.rutasJMenuItem)){
-//            new ListaRutasController(this);
-//            vista.setVisible(false);
-//        }
     }
-
 }

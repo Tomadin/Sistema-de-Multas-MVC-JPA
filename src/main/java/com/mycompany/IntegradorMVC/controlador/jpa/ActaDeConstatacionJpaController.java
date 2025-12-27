@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.IntegradorMVC.controlador.jpa;
 
 import com.mycompany.IntegradorMVC.modelo.ActaDeConstatacion;
@@ -20,9 +17,7 @@ public class ActaDeConstatacionJpaController extends AbstractJpaController<ActaD
         super(ActaDeConstatacion.class);
     }
 
-    /**
-     * Obtiene todas las actas con todas sus relaciones cargadas
-     */
+
     @Override
     public List<ActaDeConstatacion> findAll() {
         EntityManager em = null;
